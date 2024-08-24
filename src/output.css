@@ -553,3 +553,19 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
