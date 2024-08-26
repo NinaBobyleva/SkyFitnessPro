@@ -1,1 +1,7 @@
-{ "extends": ["stylelint-config-recommended", "stylelint-config-tailwindcss"] }
+{
+  "rules": {
+    "block-no-empty": true
+  },
+  "ignoreFiles": [".output.css"],
+  "extends": ["stylelint-config-recommended", "stylelint-config-tailwindcss"]
+}
