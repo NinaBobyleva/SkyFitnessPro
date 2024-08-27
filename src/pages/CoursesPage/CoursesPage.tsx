@@ -47,7 +47,7 @@ export function CoursesPage() {
           </div>
         </section>
         <section className="z-10">
-          <h2 className="font-roboto-600 font-bold text-black text-4xl md:text-5xl mb-[24px] lg:mb-[40px]">
+          <h2 className="font-roboto-500 font-semibold text-black text-4xl md:text-5xl mb-[24px] lg:mb-[40px]">
             Направления
           </h2>
           <ul className="bg-lime   rounded-[30px] flex flex-col gap-y-[20px] lg:flex-row flex-wrap md:gap-y-[22px] p-[30px] ">
