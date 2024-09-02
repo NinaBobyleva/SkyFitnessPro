@@ -4,12 +4,12 @@ import { CourseType } from '../../types';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import noticeImg from '../../../public/img/notice.png';
-import yogaImg from '../../../public/img/Yoga.png';
-import stretchingImg from '../../../public/img/Stretching.png';
-import danceFitnessImg from '../../../public/img/DanceFitness.png';
-import stepAirobicImg from '../../../public/img/StepAirobic.png';
-import bodyFlexImg from '../../../public/img/BodyFlex.png';
+import noticeImg from '/public/img/notice.png';
+import yogaImg from '/public/img/Yoga.png';
+import stretchingImg from '/public/img/Stretching.png';
+import danceFitnessImg from '/public/img/DanceFitness.png';
+import stepAirobicImg from '/public/img/StepAirobic.png';
+import bodyFlexImg from '/public/img/BodyFlex.png';
 
 
 type CoursesArrayType = [string, CourseType][];

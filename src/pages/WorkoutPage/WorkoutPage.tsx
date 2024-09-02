@@ -1,5 +1,5 @@
 import { Button } from "../../components/Button/Button";
-import { WorkoutProgress } from "../../components/WorkoutProgress/WorkoutProgress";
+import WorkoutProgress from "../../components/WorkoutProgress/WorkoutProgress";
 import Wrapper from "../../components/Wrapper/Wrapper";
 
 export function WorkoutPage() {
