@@ -126,6 +126,8 @@ html,
 body {
   margin: 0;
 
+  @apply bg-[#FAFAFA];
+
   /* 1 */
   line-height: inherit;
 
