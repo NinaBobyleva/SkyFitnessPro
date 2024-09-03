@@ -24,76 +24,31 @@ export function WorkoutPage() {
         </h2>
         <div className="grid grid-flow-row gap-6 items-end md:grid-cols-2 md:gap-5 xl:grid-cols-3">
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны вперед 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны вперед" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны вперед 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны вперед" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны вперед 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны вперед" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны назад 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны назад" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны назад 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны назад" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Наклоны назад 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Наклоны назад" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Поднятие ног, согнутых в коленях 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Поднятие ног, согнутых в коленях" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Поднятие ног, согнутых в коленях 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Поднятие ног, согнутых в коленях" progress="40%" />
           </div>
           <div className="lg:w-[320px] w-[283px]">
-            <div>
-              <p className="text-black text-[18px] font-roboto-400 font-normal mb-[10px]">
-                Поднятие ног, согнутых в коленях 0%
-              </p>
-            </div>
-            <WorkoutProgress />
+            <WorkoutProgress title="Поднятие ног, согнутых в коленях" progress="40%" />
           </div>
         </div>
         <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
