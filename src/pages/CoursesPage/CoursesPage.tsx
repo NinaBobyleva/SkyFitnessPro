@@ -1,9 +1,11 @@
+import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 
 export function CoursesPage() {
   return (
-    <Wrapper>
-      <>
+    <>
+    <Header/>
+      <Wrapper>
         <div
           id="notification-box"
           className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"
@@ -117,7 +119,7 @@ export function CoursesPage() {
             </div>
           </div>
         </section>
-      </>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }
