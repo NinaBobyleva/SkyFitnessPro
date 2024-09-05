@@ -2,22 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src:url(/src/fonts/Roboto-Regular.ttf) format('ttf');
-    }
+body {
+  color: black;
+  background: #FAFAFA;
 }
 
 @layer base {
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-display: swap;
-        src:url(/src/fonts/Roboto-Medium.ttf) format('ttf');
-    }
+  @font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/fonts/Roboto-Regular.ttf) format("ttf");
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(/src/fonts/Roboto-Medium.ttf) format("ttf");
+  }
 }

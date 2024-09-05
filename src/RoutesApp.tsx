@@ -14,6 +14,7 @@ export function RoutesApp() {
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>
         <Route path={path.WORKOUT} element={<WorkoutPage />} />
+        {/* <Route path={path.PROFILE} element={<ProfilePage />} /> */}
       </Route>
 
       <Route path={path.HOME} element={<HomePage />}>
