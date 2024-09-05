@@ -72,39 +72,41 @@ export function HomePage() {
 
 
   return (
-    <Wrapper>
-      <Header/>
-      <div className="pt-40"> 
-        <div id="notification-box" className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"></div>
-        
-        <div id="top" className="flex flex-col md:flex-row">
-          <h1 className="mb-[34px] lg:mb-[50px] font-roboto font-medium text-[60px] leading-[60px] md:w-[calc(100% - 308px)] main:w-[850px]">
-             Начните заниматься спортом и улучшите качество жизни
-          </h1>
-          <div className="relative w-[288px] h-[120px]">
-            <img src={noticeImg} alt="Notice" className="absolute inset-0 w-full h-full object-cover" />
+    <>
+      <Header />
+      <Wrapper>
+        <div className="pt-40"> 
+          <div id="notification-box" className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"></div>
+          
+          <div id="top" className="flex flex-col md:flex-row">
+            <h1 className="mb-[16px] lg:mb-[8px] font-roboto font-medium text-[60px] leading-[60px] md:w-[calc(100% - 308px)] main:w-[850px]">
+              Начните заниматься спортом и улучшите качество жизни
+            </h1>
+            <div className="relative w-[288px] h-[120px]">
+              <img src={noticeImg} alt="Notice" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
+          
+          <div className="flex md:justify-center lg:justify-start flex-wrap md:gap-y-10 gap-x-10 mb-32 mt-10"> 
+            {courses.map(([_, course]) => (
+              <CourseCard
+                key={course._id}
+                courseId={course._id}
+                course={course}
+                isSubscribed={false} 
+                imgURL={course.nameEN}
+                title={course.nameRU}
+              />
+            ))}
+          </div>
+          
+          <div className="flex justify-center mx-[auto] w-[140px] mt-8">
+            <Link to={'#top'}>
+              <Button title="Наверх &#8593;" />
+            </Link>
           </div>
         </div>
-        
-        <div className="flex md:justify-center lg:justify-start flex-wrap md:gap-y-10 gap-x-10 mb-64"> 
-          {courses.map(([_, course]) => (
-            <CourseCard
-              key={course._id}
-              courseId={course._id}
-              course={course}
-              isSubscribed={false} 
-              imgURL={course.nameEN}
-              title={course.nameRU}
-            />
-          ))}
-        </div>
-        
-        <div className="flex justify-center mx-[auto] w-[140px] mt-8 pt-20">
-          <Link to={'#top'}>
-            <Button title="Наверх &#8593;" />
-          </Link>
-        </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }

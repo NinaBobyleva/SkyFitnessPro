@@ -3,6 +3,8 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { CoursesPage } from "./pages/CoursesPage/CoursesPage";
 import { WorkoutPage } from "./pages/WorkoutPage/WorkoutPage";
 
+
+
 export function RoutesApp() {
     return (
         <Routes>
