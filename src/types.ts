@@ -1,4 +1,6 @@
-export type CourseType = {
+import { ReactNode } from "react";
+
+export type CourseProp = {
   _id: string;
   description: string;
   directions: string[];
@@ -24,4 +26,29 @@ export type InputProps = {
   placeholder: string;
   // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   // value: string;
+};
+
+export type ButtonProps = {
+  title?: string;
+  onClick?: () => void;
+  type?: "submit";
+};
+
+export type ButtonLinkProps = {
+  title: string;
+  link: string;
+  onClick?: () => void;
+};
+
+export type ModalNewPasswordProps = {
+  email: string;
+};
+
+export type WorkoutProgressProp = {
+  title: string;
+  progress: string;
+};
+
+export type WrapperProp = {
+  children: ReactNode;
 };

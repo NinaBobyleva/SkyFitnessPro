@@ -1,8 +1,4 @@
-export type ButtonProps = {
-  title?: string;
-  onClick?: () => void;
-  type?: "submit";
-};
+import { ButtonProps } from "../../types";
 
 export function Button({ title, onClick, type }: ButtonProps) {
   return (

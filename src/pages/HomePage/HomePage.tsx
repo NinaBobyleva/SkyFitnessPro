@@ -1,6 +1,6 @@
 import CourseCard from '../../components/CourseCard/CourseCard';
 import { Button } from '../../components/Button/Button';
-import { CourseType } from '../../types';
+import { CourseProp } from '../../types';
 import { Link, Outlet } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -12,7 +12,7 @@ import stepAirobicImg from '/public/img/StepAirobic.png';
 import bodyFlexImg from '/public/img/BodyFlex.png';
 
 
-type CoursesArrayType = [string, CourseType][];
+type CoursesArrayType = [string, CourseProp][];
 
 export function HomePage() {
   const courses: CoursesArrayType = [

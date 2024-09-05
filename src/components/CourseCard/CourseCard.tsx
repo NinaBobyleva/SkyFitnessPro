@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
-import { CourseType } from '../../types';
+import { CourseProp } from '../../types';
 
-type CourseCardType = {
+type CourseCardProp = {
   imgURL: string;
   title: string;
   isSubscribed: boolean;
   progress?: string;
   courseId: string;
-  course?: CourseType;
+  course?: CourseProp;
 };
 
 export default function CourseCard({
@@ -18,7 +18,7 @@ export default function CourseCard({
   isSubscribed,
   imgURL,
   title,
-}: CourseCardType) {
+}: CourseCardProp) {
   return (
     <div
       onClick={() => console.log(`Navigating to /course/${courseId}`)}

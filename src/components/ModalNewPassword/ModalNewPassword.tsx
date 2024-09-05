@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-
-type ModalNewPasswordProps = {
-  email: string;
-};
+import { ModalNewPasswordProps } from "../../types";
+import { path } from "../../paths";
 
 export default function ModalNewPassword({
   email,
@@ -14,7 +12,7 @@ export default function ModalNewPassword({
           className="w-[337px] md:w-[366px] bg-[#FFFFFF] rounded-[30px] px-[31px] md:px-[40px] py-[40px]"
           action="#"
         >
-          <Link to="/">
+          <Link to={path.HOME}>
             <img
               src="/img/logo_modal.png"
               className="w-[220px] h-[35px] mb-5 mx-auto"
