@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { path } from "../../paths";
 
 export function ModalLogo({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +10,7 @@ export function ModalLogo({ children }: { children: React.ReactNode }) {
             className="w-[337px] md:w-[366px] bg-[#FFFFFF] rounded-[30px] px-[31px] md:px-[40px] py-[40px]"
             action="#"
           >
-            <Link to="/">
+            <Link to={path.HOME}>
               <img
                 src="/img/logo_modal.png"
                 alt="logo"
