@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logoImg from '/public/img/logo.svg';
 import ButtonHeader from '../ButtonHeader/ButtonHeader'; 
+import { path } from '../../paths';
 
 export default function Header() {
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+  const navigate = useNavigate();
+  // const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
 
   const toggleLoginForm = () => {
-    setIsLoginFormOpen(prevState => !prevState);
+    navigate(path.LOGIN);
   };
 
   return (
@@ -32,7 +34,7 @@ export default function Header() {
       </div>
       
       
-      {isLoginFormOpen && (
+      {/* {isLoginFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded shadow-lg w-[90%] max-w-md">
             <h2 className="text-2xl font-bold mb-4">Вход</h2>
@@ -74,7 +76,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

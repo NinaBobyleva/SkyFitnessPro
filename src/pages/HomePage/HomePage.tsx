@@ -1,7 +1,7 @@
 import CourseCard from '../../components/CourseCard/CourseCard';
 import { Button } from '../../components/Button/Button';
 import { CourseType } from '../../types';
-import { Link } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import noticeImg from '/public/img/notice.png';
@@ -10,6 +10,7 @@ import stretchingImg from '/public/img/Stretching.png';
 import danceFitnessImg from '/public/img/DanceFitness.png';
 import stepAirobicImg from '/public/img/StepAirobic.png';
 import bodyFlexImg from '/public/img/BodyFlex.png';
+import { path } from '../../paths';
 
 
 type CoursesArrayType = [string, CourseType][];
@@ -68,13 +69,14 @@ export function HomePage() {
     }],
   ];
 
-
+  const navigate = useNavigate();
 
 
   return (
+    <>
     <Wrapper>
       <Header/>
-      <div className="pt-40"> 
+      <div className="pt-40" onClick={() => navigate(path.HOME)}> 
         <div id="notification-box" className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"></div>
         
         <div id="top" className="flex flex-col md:flex-row">
@@ -106,5 +108,7 @@ export function HomePage() {
         </div>
       </div>
     </Wrapper>
+    <Outlet/>
+    </>
   );
 }

@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { path } from "../../paths";
 
-export function PrivateRoute() {
-    const [isAuth, setIsAuth] = useState(true);
-    return isAuth ? <Outlet/> : <Navigate to={"/signin"} />
+export function PrivateRoute({isAuth}: {isAuth: boolean}) {
+    
+    return isAuth ? <Outlet/> : <Navigate to={path.LOGIN} />
 }
