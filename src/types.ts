@@ -52,3 +52,8 @@ export type WorkoutProgressProp = {
 export type WrapperProp = {
   children: ReactNode;
 };
+
+export type SVGProp = {
+  icon: string;
+  className?: string;
+};
