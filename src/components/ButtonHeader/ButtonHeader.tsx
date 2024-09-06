@@ -1,4 +1,4 @@
-import { ButtonProps } from "../Button/Button";
+import { ButtonProps } from "../../types";
 
 export default function ButtonHeader({ title, onClick, type }: ButtonProps) {
   return (
