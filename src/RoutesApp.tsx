@@ -2,16 +2,27 @@ import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { CoursesPage } from "./pages/CoursesPage/CoursesPage";
 import { WorkoutPage } from "./pages/WorkoutPage/WorkoutPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { SigninPage } from "./pages/SigninPage/SigninPage";
+import { SignupPage } from "./pages/SignupPage/SignupPage";
+import { path } from "./paths";
+import { useState } from "react";
 
 export function RoutesApp() {
-    return (
-        <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/course" element={<CoursesPage />} />
-            <Route path="/workout" element={<WorkoutPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
-    );
+  const [isAuth, setIsAuth] = useState(false);
+  return (
+    <Routes>
+      <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route path={path.WORKOUT} element={<WorkoutPage />} />
+        {/* <Route path={path.PROFILE} element={<ProfilePage />} /> */}
+      </Route>
+
+      <Route path={path.HOME} element={<HomePage />}>
+        <Route path={path.LOGIN} element={<SigninPage />} />
+        <Route path={path.SIGNUP} element={<SignupPage />} />
+      </Route>
+
+      <Route path={path.COURSE} element={<CoursesPage isAuth={isAuth} />} />
+    </Routes>
+  );
 }

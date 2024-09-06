@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
-
-type ButtonLinkProps = {
-  title: string;
-  link: string;
-  onClick?: () => void;
-};
+import { ButtonLinkProps } from "../../types";
 
 export default function ButtonLink({ onClick, title, link }: ButtonLinkProps) {
   return (
