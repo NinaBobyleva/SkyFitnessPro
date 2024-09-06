@@ -9,7 +9,7 @@ import { path } from "./paths";
 import { useState } from "react";
 
 export function RoutesApp() {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>
@@ -22,7 +22,7 @@ export function RoutesApp() {
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>
 
-      <Route path={path.COURSE} element={<CoursesPage />} />
+      <Route path={path.COURSE} element={<CoursesPage isAuth={isAuth} />} />
     </Routes>
   );
 }

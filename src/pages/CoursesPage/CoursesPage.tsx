@@ -1,7 +1,8 @@
+import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-export function CoursesPage() {
+export function CoursesPage({isAuth}: {isAuth: boolean}) {
   return (
     <>
     <Header/>
@@ -98,16 +99,17 @@ export function CoursesPage() {
                   </li>
                 </ul>
               </div>
+              {isAuth ? <Button title="Добавить курс"/> : <Button title="Войдите чтобы добавить курс" />}
             </div>
             <div
               className="relative xl:z-10 -z-10 flex justify-end
-            xl:bottom-[550px] md:bottom-[730px] bottom-[700px] 
-            lg:left-[30px] md:left-[0px] left-[60px]"
+              xl:bottom-[550px] md:bottom-[730px] bottom-[700px] 
+              lg:left-[30px] md:left-[0px] left-[60px]"
             >
               <img
                 className="[clip:rect(auto,auto,390px,auto)] lg:[clip:rect(auto,auto,450px,auto)] right-[35px] top-[195px]
-          md:-right-[10px] md:top-[140px] absolute 
-          xl:-right-[40px] xl:top-[140px] lg:-right-[30px] lg:top-[130px] "
+                md:-right-[10px] md:top-[140px] absolute 
+                xl:-right-[40px] xl:top-[140px] lg:-right-[30px] lg:top-[130px] "
                 src="../img/lines.svg"
                 alt="green and black line"
               />
@@ -118,6 +120,7 @@ export function CoursesPage() {
               />
             </div>
           </div>
+
         </section>
       </Wrapper>
     </>
