@@ -1,25 +1,49 @@
+import { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-export function CoursesPage({isAuth}: {isAuth: boolean}) {
+export function CoursesPage({ isAuth }: { isAuth: boolean }) {
+  const [color, setColor] = useState("bg-yellow");
+  const courseName = "Yoga";
+
+  // switch (courseName) {
+  //   case "Yoga":
+  //     setColor("bg-yellow");
+  //     break;
+  //   case "StepAirobic":
+  //     setColor("bg-salmon");
+  //     break;
+  //   case "BodyFlex":
+  //     setColor("bg-purple");
+  //     break;
+  //   case "DanceFitness":
+  //     setColor("bg-orange");
+  //     break;
+  //   case "Stretching":
+  //     setColor("bg-blueDark");
+  //     break;
+  //   default:
+  //     setColor("bg-white");
+  // }
+
   return (
     <>
-    <Header/>
+      <Header />
       <Wrapper>
         <div
           id="notification-box"
           className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"
         ></div>
         <section
-          className={`flex flex-row justify-end md:justify-between w-auto h-[330px] lg:h-[310px] rounded-[30px] bg-yellow overflow-hidden`}
+          className={`flex flex-row justify-end md:justify-between w-auto h-[330px] lg:h-[310px] rounded-[30px] ${color} overflow-hidden`}
         >
           <h1 className="font-roboto-500 hidden md:text-4xl lg:text-6xl  md:block font-medium text-white mb-[10px] pt-[40px] pl-[40px]">
             Йога
           </h1>
           <img
             className="w-[343px] h-[330px] lg:w-[360px] lg:h-[330px]"
-            src="/img/Yoga.png"
+            src={`/img/${courseName}.png`}
             alt="yoga"
           />
         </section>
@@ -99,7 +123,11 @@ export function CoursesPage({isAuth}: {isAuth: boolean}) {
                   </li>
                 </ul>
               </div>
-              {isAuth ? <Button title="Добавить курс"/> : <Button title="Войдите чтобы добавить курс" />}
+              {isAuth ? (
+                <Button title="Добавить курс" />
+              ) : (
+                <Button title="Войдите чтобы добавить курс" />
+              )}
             </div>
             <div
               className="relative xl:z-10 -z-10 flex justify-end
@@ -120,7 +148,6 @@ export function CoursesPage({isAuth}: {isAuth: boolean}) {
               />
             </div>
           </div>
-
         </section>
       </Wrapper>
     </>
