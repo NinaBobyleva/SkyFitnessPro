@@ -9,7 +9,7 @@ import { path } from "./paths";
 import { useState } from "react";
 
 export function RoutesApp() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>

@@ -1,14 +1,23 @@
+import { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
+import { Video } from "../../components/Video/Video";
 import WorkoutProgress from "../../components/WorkoutProgress/WorkoutProgress";
 import Wrapper from "../../components/Wrapper/Wrapper";
+import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/ModalWorkoutProgress";
 
 export function WorkoutPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleWorkoutProgressModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <>
       <Header />
       <Wrapper>
-        <section className="pt-40">
+        <section>
           <h1 className="font-roboto-500 text-2xl lg:text-6xl font-medium text-black mb-[10px] lg:mb-6">
             Йога
           </h1>
@@ -16,9 +25,7 @@ export function WorkoutPage() {
             Красота и здоровье / Йога на каждый день / 2 день
           </p>
           <div className="h-[189px] md:h-[639px] rounded-[30px] mb-6 lg:mb-10">
-            <h3>
-              <img src="../img/video.jpg" />
-            </h3>
+            <Video />
           </div>
         </section>
         <section className="rounded-[30px] p-[30px] lg:p-10 bg-white shadow-def ">
@@ -64,8 +71,12 @@ export function WorkoutPage() {
             </div>
           </div>
           <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
-            <Button title="Заполнить свой прогресс" />
+            <Button
+              title="Заполнить свой прогресс"
+              onClick={toggleWorkoutProgressModal}
+            />
           </div>
+          {isOpen && <ModalWorkoutProgress />}
         </section>
       </Wrapper>
     </>
