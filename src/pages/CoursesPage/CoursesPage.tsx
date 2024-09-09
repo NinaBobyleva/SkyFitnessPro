@@ -1,7 +1,29 @@
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
+import { onValue, ref } from "firebase/database";
+import { CourseProp } from "../../types";
+import { db } from "../../api/firebaseConfig";
+
+type CoursesArrayType = [string, CourseProp][];
 
 export function CoursesPage() {
+  const [courses, setCourses] = useState<CoursesArrayType>([]);
+  console.log(courses)
+
+  useEffect(() => {
+    const coursesDB = ref(db, "courses");
+    return onValue(coursesDB, (snapshot) => {
+      if (snapshot.exists()) {
+        const coursesArray: CoursesArrayType = Object.entries(snapshot.val());
+        setCourses(coursesArray);
+      } else {
+        alert("Извините, курсы не найдены, либо нет подключения к интернету");
+        return;
+      }
+    });
+  }, []);
+
   return (
     <>
     <Header/>
