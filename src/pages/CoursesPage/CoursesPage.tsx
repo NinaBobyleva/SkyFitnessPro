@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
+import { CourseProp } from "../../types";
+
+export type CoursesArrayType = [string, CourseProp][];
 
 export function CoursesPage({ isAuth }: { isAuth: boolean }) {
   const [color, setColor] = useState("bg-yellow");
