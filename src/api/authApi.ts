@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
 import { auth } from "./firebaseConfig";
-import { signOut, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 
 type createUserType = {
     email: string;
@@ -18,7 +18,7 @@ export const createUser = async ({email, password, name}: createUserType) => {
 }
 
 export const authUser = async ({email, password}: Omit<createUserType, 'name'>) => {
-    const signIn = await createUserWithEmailAndPassword(auth, email, password)
+    const signIn = await signInWithEmailAndPassword(auth, email, password)
     const user = signIn.user
     return user
 }

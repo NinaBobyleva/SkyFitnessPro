@@ -16,10 +16,11 @@ export function SigninPage() {
   const onChangeInput = (e:React.ChangeEvent<HTMLInputElement>, setState: (state:string) => void) => {
     setState(e.target.value)
   }
-  const handlerLogin = async () => {
-    console.log(email, password)
+  const handlerLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     try {
-      await authUser({email, password})
+      const user = await authUser({email, password})
+      localStorage.setItem('user', JSON.stringify(user))
       navigate(path.HOME)
     } catch (error) {
       if(error instanceof Error){
