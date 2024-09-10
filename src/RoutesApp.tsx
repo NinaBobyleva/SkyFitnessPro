@@ -22,7 +22,7 @@ export function RoutesApp() {
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>
 
-      <Route path={path.COURSE} element={<CoursesPage />} />
+      <Route path={path.COURSE} element={<CoursesPage isAuth={isAuth} />} />
     </Routes>
   );
 }

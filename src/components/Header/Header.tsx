@@ -1,18 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logoImg from "/public/img/logo.svg";
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import { path } from "../../paths";
 
 export default function Header() {
-  const navigate = useNavigate();
-
-  const toggleLoginForm = () => {
-    navigate(path.LOGIN);
-  };
 
   return (
-    <div className="relative">
-      <div className="absolute top-[50px] left-[30px]">
+    <div className="flex justify-between mx-auto py-10 md:pt-[50px] md:pb-14 lg:max-w-[1440px] px-4 md:px-8 main:px-[140px]">
+      <div>
         <Link to="/">
           <img src={logoImg} className="w-[220px] h-[35px]" alt="logo" />
         </Link>
@@ -21,8 +16,10 @@ export default function Header() {
         </p>
       </div>
 
-      <div className="absolute top-0 right-0 p-10">
-        <ButtonHeader title="Войти" onClick={toggleLoginForm} />
+      <div className="w-[83px] md:w-[103px]">
+        <Link to={path.LOGIN}>
+          <ButtonHeader title="Войти" />
+        </Link>
       </div>
     </div>
   );

@@ -1,28 +1,52 @@
+import { useState } from "react";
+import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { CourseProp } from "../../types";
 
 export type CoursesArrayType = [string, CourseProp][];
 
-export function CoursesPage() {
-  
+export function CoursesPage({ isAuth }: { isAuth: boolean }) {
+  const [color, setColor] = useState("bg-yellow");
+  const courseName = "Yoga";
+
+  // switch (courseName) {
+  //   case "Yoga":
+  //     setColor("bg-yellow");
+  //     break;
+  //   case "StepAirobic":
+  //     setColor("bg-salmon");
+  //     break;
+  //   case "BodyFlex":
+  //     setColor("bg-purple");
+  //     break;
+  //   case "DanceFitness":
+  //     setColor("bg-orange");
+  //     break;
+  //   case "Stretching":
+  //     setColor("bg-blueDark");
+  //     break;
+  //   default:
+  //     setColor("bg-white");
+  // }
+
   return (
     <>
-    <Header/>
+      <Header />
       <Wrapper>
         <div
           id="notification-box"
           className="flex fixed flex-col items-center justify-center top-0 z-50 p-3"
         ></div>
         <section
-          className={`flex flex-row justify-end md:justify-between w-auto h-[330px] lg:h-[310px] rounded-[30px] bg-yellow overflow-hidden`}
+          className={`flex flex-row justify-end md:justify-between w-auto h-[330px] lg:h-[310px] rounded-[30px] ${color} overflow-hidden`}
         >
           <h1 className="font-roboto-500 hidden md:text-4xl lg:text-6xl  md:block font-medium text-white mb-[10px] pt-[40px] pl-[40px]">
             Йога
           </h1>
           <img
             className="w-[343px] h-[330px] lg:w-[360px] lg:h-[330px]"
-            src="/img/Yoga.png"
+            src={`/img/${courseName}.png`}
             alt="yoga"
           />
         </section>
@@ -102,16 +126,21 @@ export function CoursesPage() {
                   </li>
                 </ul>
               </div>
+              {isAuth ? (
+                <Button title="Добавить курс" />
+              ) : (
+                <Button title="Войдите чтобы добавить курс" />
+              )}
             </div>
             <div
               className="relative xl:z-10 -z-10 flex justify-end
-            xl:bottom-[550px] md:bottom-[730px] bottom-[700px] 
-            lg:left-[30px] md:left-[0px] left-[60px]"
+              xl:bottom-[550px] md:bottom-[730px] bottom-[700px] 
+              lg:left-[30px] md:left-[0px] left-[60px]"
             >
               <img
                 className="[clip:rect(auto,auto,390px,auto)] lg:[clip:rect(auto,auto,450px,auto)] right-[35px] top-[195px]
-          md:-right-[10px] md:top-[140px] absolute 
-          xl:-right-[40px] xl:top-[140px] lg:-right-[30px] lg:top-[130px] "
+                md:-right-[10px] md:top-[140px] absolute 
+                xl:-right-[40px] xl:top-[140px] lg:-right-[30px] lg:top-[130px] "
                 src="../img/lines.svg"
                 alt="green and black line"
               />
