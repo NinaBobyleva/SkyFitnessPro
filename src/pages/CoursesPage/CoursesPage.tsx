@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { CourseProp } from "../../types";
+import { getCourses } from "../../api/coursesApi";
 
 export type CoursesArrayType = [string, CourseProp][];
 
 export function CoursesPage({ isAuth }: { isAuth: boolean }) {
+  const [courses, setCourses] = useState<CoursesArrayType | null>([]);
   const [color, setColor] = useState("bg-yellow");
+  
+  console.log(courses)
+
+  useEffect(() => {
+    const getDataCourses = async () => {
+      const res = await getCourses();
+      setCourses(res);
+    }
+    getDataCourses();
+  }, []);
+  
   const courseName = "Yoga";
 
   // switch (courseName) {
