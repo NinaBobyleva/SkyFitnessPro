@@ -2,7 +2,7 @@ export const path = {
     HOME: "/",
     COURSE: "/course/:id",
     WORKOUT: "/workout",
-    PROFILE: "",
+    PROFILE: "/profile",
     LOGIN: "/signin",
     SIGNUP: "/signup"
 }
