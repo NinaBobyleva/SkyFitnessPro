@@ -1,8 +1,8 @@
 import { get, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
-import { CoursesArrayType } from "../pages/CoursesPage/CoursesPage";
+import { CourseProp, WorkoutType } from "../types";
 
-export async function getCourses(): Promise<CoursesArrayType | null> {
+export async function getCourses(): Promise<CourseProp[] | null> {
     try {
         const coursesDB = ref(db, "courses");
         const snapshot = await get(coursesDB)
@@ -18,7 +18,7 @@ export async function getCourses(): Promise<CoursesArrayType | null> {
 
 // гет Воркаутс 
 
-export async function getWorkouts(): Promise<CoursesArrayType | null> {
+export async function getWorkouts(): Promise<WorkoutType[] | null> {
     try {
         const workoutsDB = ref(db, "workouts");
         const snapshot = await get(workoutsDB)
