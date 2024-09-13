@@ -8,7 +8,7 @@ import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/Moda
 import { CourseProp, ExerciseType, UserWorkoutType, WorkoutType } from "../../types";
 import { useParams } from "react-router-dom";
 import { getWorkouts } from "../../api/coursesApi";
-import { getUser } from "../../api/workoutApi";
+import { getExercises } from "../../api/workoutApi";
 import { Title } from "../../components/Title/Title";
 
 export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
@@ -27,14 +27,14 @@ export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
       const res = await getWorkouts();
       setWorkouts(res);
     };
-    const getDataUser = async () => {
+    const getDataExercises = async () => {
       // const uid = JSON.parse(localStorage.getItem('user') || "").uid;
-      const res = await getUser("3", "q02a6i", "17oz5f");
+      const res = await getExercises("3", "q02a6i", "17oz5f");
       setExercises(res);
     }
 
     getDataWorkouts();
-    getDataUser();
+    getDataExercises();
   }, []);
 
   const toggleWorkoutProgressModal = () => {
