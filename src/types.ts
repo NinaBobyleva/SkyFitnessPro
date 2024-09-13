@@ -11,6 +11,19 @@ export type CourseProp = {
   workouts: string[];
 };
 
+export type ExerciseType = {
+  name: string;
+  quantity: number;
+};
+
+export type WorkoutType = {
+  name: string;
+  video: string;
+  _id: string;
+  exercises: ExerciseType[];
+  progressWorkout: number;
+};
+
 export type PathProp = {
   HOME: string;
   COURSE: string;
@@ -56,4 +69,16 @@ export type WrapperProp = {
 export type SVGProp = {
   icon: string;
   className?: string;
+};
+
+export type UserWorkoutType = [
+  string, WorkoutType
+];
+
+export type UserCourseType = {
+  _id: string;
+  nameEN: string;
+  nameRU: string;
+  progress: string;
+  workouts: UserWorkoutType[];
 };

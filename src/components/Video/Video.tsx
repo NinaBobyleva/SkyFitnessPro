@@ -1,5 +1,4 @@
-export function Video() {
-    const videoURL = "https://www.youtube.com/embed/WxFz-4YsiEE";
+export function Video({videoURL}: {videoURL: string | undefined}) {
 
   return (
     <iframe
