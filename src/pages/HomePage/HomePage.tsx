@@ -116,7 +116,7 @@ export function HomePage() {
 
           <div className="flex justify-center mx-[auto] w-[140px] mt-8">
             <Link to={"#top"}>
-              <Button title="Наверх &#8593;" />
+              <Button onClick={() => window.scrollTo({top: 0, behavior: "smooth"})} title="Наверх &#8593;" />
             </Link>
           </div>
         </div>
