@@ -26,7 +26,7 @@ export function RoutesApp() {
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>
-        <Route path={path.WORKOUT} element={<WorkoutPage />} />
+        <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
         <Route path={path.PROFILE} element={<ProfilePage />} />
       </Route>
 

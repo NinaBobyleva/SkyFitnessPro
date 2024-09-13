@@ -1,46 +1,65 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import { Video } from "../../components/Video/Video";
 import WorkoutProgress from "../../components/WorkoutProgress/WorkoutProgress";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/ModalWorkoutProgress";
-import { ExerciseType, WorkoutType } from "../../types";
+import { CourseProp, ExerciseType, UserWorkoutType, WorkoutType } from "../../types";
 import { useParams } from "react-router-dom";
 import { getWorkouts } from "../../api/coursesApi";
+import { getUser } from "../../api/workoutApi";
+import { Title } from "../../components/Title/Title";
 
-export function WorkoutPage() {
+export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
   const [isOpen, setIsOpen] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutType[] | null>([]);
-  console.log(workouts);
   const { id } = useParams();
-  console.log(id);
-  const [exercises, setExercises] = useState<ExerciseType | null>();
+  const [exercises, setExercises] = useState<ExerciseType[] | null>([]);
+  const courseUser = courses?.filter((item) => item.workouts.find((el) => el === id));
+
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const workout = workouts?.find((el) => el._id === id);
-
-  console.log(workout?.exercises);
 
   useEffect(() => {
     const getDataWorkouts = async () => {
       const res = await getWorkouts();
       setWorkouts(res);
     };
+    const getDataUser = async () => {
+      // const uid = JSON.parse(localStorage.getItem('user') || "").uid;
+      const res = await getUser("3", "q02a6i", "17oz5f");
+      setExercises(res);
+    }
+
     getDataWorkouts();
+    getDataUser();
   }, []);
 
   const toggleWorkoutProgressModal = () => {
-    setIsOpen(true);
+    setIsOpen(prev => !prev);
   };
+
+  const handleClickOutside = (e: any) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      toggleWorkoutProgressModal();
+    }
+  }
+  
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, []);
 
   return (
     <>
       <Header />
       <Wrapper>
         <section>
-          <h1 className="font-roboto-500 text-2xl lg:text-6xl font-medium text-black mb-[10px] lg:mb-6">
-            Йога
-          </h1>
+          {courseUser?.map((el, i) => <Title key={i} title={el.nameRU} />)}
           <p className="text-black text-[32px] font-roboto-400 font-normal mb-6 lg:mb-10">
             {workout?.name}
           </p>
@@ -53,10 +72,10 @@ export function WorkoutPage() {
             Упражнения тренировки
           </h2>
           <div className="grid grid-flow-row gap-6 items-end md:grid-cols-2 md:gap-5 xl:grid-cols-3">
-            {workout?.exercises?.map((exercise) => {
+            {exercises?.map((exercise, i) => {
                 return (
-                  <div className="lg:w-[320px] w-[283px]">
-                    <WorkoutProgress title={exercise.name} progress="40%" />
+                  <div key={i} className="lg:w-[320px] w-[283px]">
+                    <WorkoutProgress title={exercise.name} progress="0%" />
                   </div>
                 );
               })}
@@ -67,7 +86,7 @@ export function WorkoutPage() {
               onClick={toggleWorkoutProgressModal}
             />
           </div>
-          {isOpen && <ModalWorkoutProgress />}
+          {isOpen && <ModalWorkoutProgress modalRef={modalRef} exercises={exercises} />}
         </section>
       </Wrapper>
     </>
