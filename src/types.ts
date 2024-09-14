@@ -71,9 +71,7 @@ export type SVGProp = {
   className?: string;
 };
 
-export type UserWorkoutType = [
-  string, WorkoutType
-];
+export type UserWorkoutType = [string, WorkoutType];
 
 export type UserCourseType = {
   _id: string;
@@ -81,4 +79,14 @@ export type UserCourseType = {
   nameRU: string;
   progress: string;
   workouts: UserWorkoutType[];
+};
+
+export type NewWorkoutContentType = {
+  [key: string]: {
+    _id: string;
+    name: string;
+    progressWorkout: number;
+    video: string;
+    exercises: ExerciseType[];
+  };
 };

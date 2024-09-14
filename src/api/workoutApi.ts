@@ -15,3 +15,5 @@ export async function getExercises(userId: string, courseId: string, workoutId: 
         return null;
     }
 }
+
+// /users/8IAaqsZFyXdJGppMmTgiUgpgfhl2/courses/ab1c3f/workouts/3yvozj/exercises

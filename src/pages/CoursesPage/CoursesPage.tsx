@@ -4,16 +4,13 @@ import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { CourseProp } from "../../types";
 import { useParams } from "react-router-dom";
+import { auth } from "../../api/firebaseConfig";
+import { addUserCourse } from "../../utils/userData";
 
-export function CoursesPage({
-  isAuth,
-  courses,
-}: {
-  isAuth: boolean;
-  courses: CourseProp[] | null;
-}) {
+export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
   const [color, setColor] = useState("bg-white");
   const { id } = useParams();
+  const currentUser = auth.currentUser;
 
   const course = courses?.find((el) => el._id === id);
 
@@ -66,7 +63,10 @@ export function CoursesPage({
           <div className="flex flex-col md:flex-row gap-[17px]">
             {course?.fitting.map((el, i) => {
               return (
-                <div key={i} className="p-[20px] w-fit h-[141] bg-black rounded-[30px] flex flex-row gap-[15px] md:gap-[25px] items-center">
+                <div
+                  key={i}
+                  className="p-[20px] w-fit h-[141] bg-black rounded-[30px] flex flex-row gap-[15px] md:gap-[25px] items-center"
+                >
                   <p className="text-lime font-roboto-500 text-7xl">{i + 1}</p>
                   <p className="text-lg lg:text-2xl text-white">{el}</p>
                 </div>
@@ -81,7 +81,10 @@ export function CoursesPage({
           <ul className="bg-lime   rounded-[30px] flex flex-col gap-y-[20px] lg:flex-row flex-wrap md:gap-y-[22px] p-[30px] ">
             {course?.directions.map((el, i) => {
               return (
-                <li key={i} className="md:w-1/3  before:content-['\2726'] font-roboto-500 text-lg xl:text-2xl text-black">
+                <li
+                  key={i}
+                  className="md:w-1/3  before:content-['\2726'] font-roboto-500 text-lg xl:text-2xl text-black"
+                >
                   <span className="relative left-2">{el}</span>
                 </li>
               );
@@ -113,8 +116,17 @@ export function CoursesPage({
                   </li>
                 </ul>
               </div>
-              {isAuth ? (
-                <Button title="Добавить курс" />
+              {currentUser ? (
+                <Button
+                  title="Добавить курс"
+                  onClick={() => {
+                    addUserCourse({
+                      userId: currentUser?.uid,
+                      courseId: String(course?._id),
+                      course: course!,
+                    });
+                  }}
+                />
               ) : (
                 <Button title="Войдите чтобы добавить курс" />
               )}

@@ -35,7 +35,7 @@ export function RoutesApp() {
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>
 
-      <Route path={path.COURSE} element={<CoursesPage courses={courses} isAuth={isAuth} />} />
+      <Route path={path.COURSE} element={<CoursesPage courses={courses} />} />
     </Routes>
   );
 }
