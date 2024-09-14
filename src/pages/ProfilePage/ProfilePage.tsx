@@ -4,32 +4,71 @@ import CourseCard from '../../components/CourseCard/CourseCard';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import Header from '../../components/Header/Header';
+import { useState, useEffect } from 'react';
+import { getAuth, User } from 'firebase/auth';
+import { onValue, ref } from 'firebase/database';
+import { getDatabase } from 'firebase/database';
+import { ExerciseType } from '../../types';
 
-type Course = {
+
+interface WorkoutType {
+  name: string;
+  video: string;
+  _id: string;
+  exercises: ExerciseType[];
+  progressWorkout: number;
+}
+
+
+interface UserCourseType {
   _id: string;
   nameEN: string;
   nameRU: string;
   progressCourse: number;
-  workouts: never[];
-};
+  workouts: WorkoutType[];
+}
 
 function ProfilePage() {
-  const user = { email: 'example@example.com' }; // Замените на реальные данные пользователя
-  const courses: [string, Course][] = [
-    ['course1', {
-      _id: '1',
-      nameEN: '/img/Yoga.png',
-      nameRU: 'Йога',
-      progressCourse: 80,
-      workouts: []
-    }],
-  ];
+  const [user, setUser] = useState<User | null>(null);
+  const [courses, setCourses] = useState<UserCourseType[]>([]);
+  const database = getDatabase();
+  const auth = getAuth();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, [auth]);
+
+  useEffect(() => {
+    if (!auth.currentUser?.uid) return;
+
+    return onValue(ref(database, `users/${auth.currentUser.uid}/courses`), (snapshot) => {
+      if (snapshot.exists()) {
+        const userCourseList: UserCourseType[] = Object.entries(snapshot.val() as { [key: string]: UserCourseType}).map(([, course]) => ({
+          ...course,
+        }));
+        setCourses(userCourseList);
+      } else {
+        console.log('No data available');
+        setCourses([]);
+      }
+    });
+  }, [auth.currentUser?.uid]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <Header />
       <Wrapper>
-        <div className="box-border bg-[#FAFAFA] pt-40">
+        <div className="box-border bg-[#FAFAFA]">
           <h2 className="sm:mt-[0px] mt-[36px] sm:mb-[31px] mb-[19px] sm:text-[40px] text-[24px] font-bold">
             Профиль
           </h2>
@@ -39,9 +78,7 @@ function ProfilePage() {
                 <img src="/img/no_foto.png" alt="no foto" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col sm:gap-[20px] gap-[13px] sm:mt-0 mt-[22px] sm:ml-0 ml-[19px]">
-                <div className="sm:text-[32px] text-[24px] font-bold">
-                  {user.email.split('@')[0]}
-                </div>
+                <div className="sm:text-[32px] text-[24px] font-bold">{user.email?.split('@')[0]}</div>
                 <div className="flex flex-col gap-[2px]">
                   <p className="sm:text-[18px] text-[16px]">{`Логин: ${user.email}`}</p>
                   <p className="sm:text-[18px] text-[16px]">{`Пароль: ********`}</p>
@@ -51,10 +88,7 @@ function ProfilePage() {
                     <Button title="Изменить пароль" />
                   </Link>
                   <div className="sm:w-[192px] w-[283px]">
-                    <ButtonLink
-                      title="Выйти"
-                      link="/"
-                      onClick={() => { }} />
+                    <ButtonLink title="Выйти" link="/" onClick={() => {}} />
                   </div>
                 </div>
               </div>
@@ -63,22 +97,19 @@ function ProfilePage() {
           <h2 className="sm:mt-[53px] mt-[23px] sm:mb-[31px] mb-[12px] sm:text-[40px] text-[24px] font-bold">
             Мои курсы
           </h2>
-          {courses.length === 0 && (
-            <p className="sm:text-[18px] text-[16px]">
-              У вас нет добавленных курсов
-            </p>
-          )}
+          {courses.length === 0 && <p className="sm:text-[18px] text-[16px]">У вас нет добавленных курсов</p>}
           <div className="grid grid-flow-row gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-x-[calc(100%-343px*2)] lg:gap-x-[calc(100%-360px*2)] xl:gap-x-[calc((100%-360px*3)/2)] md:gap-y-8 main:gap-x-10 main:gap-y-8 item-start">
-            {courses.map(([id, course]) => {
+            {courses.map((course) => {
               const progress = course.progressCourse.toString().concat('%');
               return (
                 <CourseCard
-                  key={id}
+                  key={course._id}
                   title={course.nameRU}
                   imgURL={course.nameEN}
                   isSubscribed={true}
-                  courseId={id}
-                  progress={progress} />
+                  courseId={course._id}
+                  progress={progress}
+                />
               );
             })}
           </div>
@@ -89,3 +120,4 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
