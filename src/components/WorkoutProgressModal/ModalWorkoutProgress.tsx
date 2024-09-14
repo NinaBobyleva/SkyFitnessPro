@@ -8,7 +8,7 @@ export function ModalWorkoutProgress({exercises, modalRef}: {exercises: Exercise
 
   console.log(exercises);
   return (
-    <ModalWrapper modalRef={modalRef}>
+    <ModalWrapper>
       <div
         ref={modalRef}
         className="fixed top-[calc(50%-(487px/2))] left-[calc(50%-(343px/2))] lg:top-[calc(50%-(596px/2))] lg:left-[calc(50%-(426px/2))]

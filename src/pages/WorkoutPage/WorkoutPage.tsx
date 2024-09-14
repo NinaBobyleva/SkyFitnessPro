@@ -5,7 +5,7 @@ import { Video } from "../../components/Video/Video";
 import WorkoutProgress from "../../components/WorkoutProgress/WorkoutProgress";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/ModalWorkoutProgress";
-import { CourseProp, ExerciseType, UserWorkoutType, WorkoutType } from "../../types";
+import { CourseProp, ExerciseType, WorkoutType } from "../../types";
 import { useParams } from "react-router-dom";
 import { getWorkouts } from "../../api/coursesApi";
 import { getExercises } from "../../api/workoutApi";
@@ -18,6 +18,9 @@ export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
   const [exercises, setExercises] = useState<ExerciseType[] | null>([]);
   const courseUser = courses?.filter((item) => item.workouts.find((el) => el === id));
 
+  const courseId = courseUser?.find((el) => el._id);
+  console.log(exercises);
+
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const workout = workouts?.find((el) => el._id === id);
@@ -28,8 +31,9 @@ export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
       setWorkouts(res);
     };
     const getDataExercises = async () => {
-      // const uid = JSON.parse(localStorage.getItem('user') || "").uid;
-      const res = await getExercises("3", "q02a6i", "17oz5f");
+      const uid = JSON.parse(localStorage.getItem('user') || "").uid;
+      const res = await getExercises(uid, String(courseId?._id), String(workout?._id));
+      console.log(res);
       setExercises(res);
     }
 
@@ -41,8 +45,8 @@ export function WorkoutPage({courses}: {courses: CourseProp[] | null;}) {
     setIsOpen(prev => !prev);
   };
 
-  const handleClickOutside = (e: any) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       toggleWorkoutProgressModal();
     }
   }
