@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { useLogout } from '../../hooks/useLogout';
 import { Button } from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +21,12 @@ export default function UserModal({
   const { logout } = useLogout();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const location = useLocation();
+
+  
+  if (location.pathname === '/profile') {
+    return null; 
+  }
 
   const handleLogout = async () => {
     setLoading(true);
@@ -64,6 +71,3 @@ export default function UserModal({
     </div>
   );
 }
-
-
-
