@@ -22,3 +22,4 @@ export const authUser = async ({email, password}: Omit<createUserType, 'name'>) 
     const user = signIn.user
     return user
 }
+
