@@ -5,23 +5,11 @@ import { Link, Outlet } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import noticeImg from "/public/img/notice.png";
-import { useEffect, useState } from "react";
-import { getCourses } from "../../api/coursesApi";
 
 
-export function HomePage() {
-  const [courses, setCourses] = useState<CourseProp[] | null>(null);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const coursesData = await getCourses();
-      if (coursesData) {
-        setCourses(coursesData);
-      }
-    };
+export function HomePage({ courses }: { courses: CourseProp[] | null }) {
 
-    fetchCourses();
-  }, []);
 
   return (
     <>

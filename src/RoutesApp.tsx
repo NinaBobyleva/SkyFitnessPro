@@ -30,7 +30,7 @@ export function RoutesApp() {
         <Route path={path.PROFILE} element={<ProfilePage />} />
       </Route>
 
-      <Route path={path.HOME} element={<HomePage />}>
+      <Route path={path.HOME} element={<HomePage courses={courses}/>}>
         <Route path={path.LOGIN} element={<SigninPage />} />
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>
