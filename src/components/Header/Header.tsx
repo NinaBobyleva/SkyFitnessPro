@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <div className="flex justify-between mx-auto py-10 md:pt-[50px] md:pb-14 lg:max-w-[1440px] px-4 md:px-8 main:px-[140px]">
       <div>
-        <Link to={'/'}>
+        <Link to={path.HOME}>
           <img src={logoImg} alt="logo" className="w-[220px] h-[35px]" />
         </Link>
         <p className="font-roboto-400 text-lg hidden md:block pt-3.5 text-[#585959]">
@@ -43,7 +43,7 @@ export default function Header() {
               <div className=" w-[36px] h-[36px] lg:w-[42px] lg:h-[42px] bg-user-icon bg-cover  bg-no-repeat bg-center" />
               <div className="flex items-center">
               <img src={user.photoURL || '/public/img/user-icon.svg'} alt="Аватар пользователя" className="w-10 h-10 rounded-full mr-2" />
-                <p className="hidden md:block text-2xl font-roboto-400 pr-[11px]">
+                <p className="hidden md:block text-2x1  font-roboto-400 pr-[11px]">
                   {user.email}
                 </p>
                 <svg className={
