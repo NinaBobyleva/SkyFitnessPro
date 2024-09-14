@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
 import { CourseProp } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
 type CourseCardProp = {
   imgURL: string;
@@ -15,17 +16,17 @@ type CourseCardProp = {
 export default function CourseCard({
   courseId,
   progress,
-  isSubscribed,
   imgURL,
   title,
+  isSubscribed,
 }: CourseCardProp) {
+  const navigate = useNavigate();
+
   return (
     <div
-      onClick={() => console.log(`Navigating to /course/${courseId}`)}
+      onClick={() => navigate(`/course/${courseId}`)}
       className="relative w-[360px] h-[501px] bg-[#FFFFFF] rounded-[30px] hover:scale-104 duration-300 hover:shadow-lg"
       style={{
-        // top: '100px',
-        // left: '0px',
         padding: '0px 0px 15px 0px',
         gap: '40px',
       }}
@@ -33,10 +34,10 @@ export default function CourseCard({
       <div title="">
         <img
           className="rounded-[30px] h-[325px] w-full object-cover"
-          src={imgURL} 
+          src={`/img/${imgURL}.png`}
           alt={title}
           width={360}
-          height={325} 
+          height={325}
         />
 
         {isSubscribed ? (
@@ -60,7 +61,7 @@ export default function CourseCard({
         )}
       </div>
       <div className="flex flex-col px-[30px] pt-6 pb-4 gap-y-[18px]">
-        <h2 className="font-roboto-500 text-[24px] lg:text-[32px] leading-8">
+        <h2 className="font-roboto-500 text-[24px] lg:text-[28px] leading-8">
           {title}
         </h2>
         <div className="flex flex-wrap gap-1.5">

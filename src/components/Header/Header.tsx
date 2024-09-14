@@ -43,7 +43,7 @@ export default function Header() {
               <div className=" w-[36px] h-[36px] lg:w-[42px] lg:h-[42px] bg-user-icon bg-cover  bg-no-repeat bg-center" />
               <div className="flex items-center">
               <img src={user.photoURL || '/public/img/user-icon.svg'} alt="Аватар пользователя" className="w-10 h-10 rounded-full mr-2" />
-                <p className="hidden md:block text-2xl font-roboto-400 pr-[11px]">
+                <p className="hidden md:block text-2x1  font-roboto-400 pr-[11px]">
                   {user.email}
                 </p>
                 <svg className={
