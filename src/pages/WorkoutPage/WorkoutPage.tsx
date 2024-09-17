@@ -13,19 +13,13 @@ import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
 import { db } from "../../api/firebaseConfig";
 
-export type ExerciseArrayType = [string, ExerciseType];
-
 export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutType[] | null>([]);
   const { id } = useParams();
-  const [exercises, setExercises] = useState<ExerciseType[] | null>([]);
+  const [exercises, setExercises] = useState<ExerciseType[]>([]);
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
-  console.log(exercises);
-
-  // const ex = exercises?.filter((exercise) => console.log(exercise[1].progress));
-
-  // console.log(ex);
 
   const workout = workouts?.find((el) => el._id === id);
 
@@ -37,17 +31,26 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
+  function closeSuccessModal() {
+    setIsSuccess(false);
+    setIsOpen(false);
+  }
+
+  function openSuccessModal() {
+    setIsSuccess(true);
+    setTimeout(closeSuccessModal, 1500);
+  }
+
   useEffect(() => {
-    // console.log(courseId);
     const getDataWorkouts = async () => {
-      const res = await getWorkouts(uid, String(courseId));
-      // console.log(res);
+      const res = await getWorkouts();
       setWorkouts(res);
     };
     const getDataExercises = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
-      // console.log(res);
-      setExercises(res);
+      if (res) {
+        setExercises(res);
+      }
     };
 
     getDataWorkouts();
@@ -72,16 +75,11 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
   }, []);
 
   async function handleSaveChanges() {
-    // const arrAvr = exercises?.map((exercise) =>
-    //   exercise.progressWorkout < exercise.quantity
-    //     ? (exercise.progressWorkout / exercise.quantity) * 100
-    //     : 100
-    // );
-
     await update(
       ref(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`),
       { exercises: exercises }
     );
+    openSuccessModal();
   }
   return (
     <>
@@ -105,7 +103,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
               const progress = Math.floor(
                 exercise.progressWorkout < exercise.quantity
                   ? (exercise.progressWorkout / exercise.quantity) * 100
-                  : 0
+                  : 100
               )
                 .toString()
                 .concat("%");
@@ -124,12 +122,11 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
           </div>
           {isOpen && (
             <ModalWorkoutProgress
+              isOpen={isSuccess}
               modalRef={modalRef}
               exercises={exercises}
               setExercises={setExercises}
               handleSaveChanges={handleSaveChanges}
-              courseId={courseId}
-              workoutId={workoutId}
             />
           )}
         </section>

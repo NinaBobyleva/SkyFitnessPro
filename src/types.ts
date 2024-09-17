@@ -22,7 +22,6 @@ export type WorkoutType = {
   video: string;
   _id: string;
   exercises: ExerciseType[];
-  // progressWorkout: number;
 };
 
 export type PathProp = {
