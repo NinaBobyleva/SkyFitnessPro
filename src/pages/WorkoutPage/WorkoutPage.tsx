@@ -79,10 +79,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
     // );
 
     await update(
-      ref(
-        db,
-        `users/${uid}/courses/${courseId}/workouts/${workoutId}`
-      ),
+      ref(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`),
       { exercises: exercises }
     );
   }
@@ -108,7 +105,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
               const progress = Math.floor(
                 exercise.progressWorkout < exercise.quantity
                   ? (exercise.progressWorkout / exercise.quantity) * 100
-                  : 100
+                  : 0
               )
                 .toString()
                 .concat("%");
@@ -121,7 +118,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
           </div>
           <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
             <Button
-              title={exercises?.map(exercise => {exercise.progressWorkout ? "Обновить свой прогресс" : "Заполнить свой прогресс"})}
+              title={exercises?.find(el => el.progressWorkout) ? "Обновить свой прогресс" : "Заполнить свой прогресс"}
               onClick={toggleWorkoutProgressModal}
             />
           </div>

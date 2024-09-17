@@ -34,7 +34,7 @@ export function ModalWorkoutProgress({
                   key={i}
                   exerciseName={exercise.name}
                   id={String(exercise)}
-                  // value={exercise.progressWorkout}
+                  value={exercise.progressWorkout}
                   onChange={(e) => setExercises((prev: ExerciseType[]) => prev.map(item => item.name === exercise.name ? {...item, progressWorkout: Number(e.target.value)} : item))}
                 />
               );

@@ -21,7 +21,7 @@ export function InputProgressForm({
         step="1"
         placeholder="0"
         id={id}
-        // defaultValue={value}
+        defaultValue={value}
         onChange={onChange}
       />
     </div>
