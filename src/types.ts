@@ -14,6 +14,7 @@ export type CourseProp = {
 export type ExerciseType = {
   name: string;
   quantity: number;
+  progressWorkout: number;
 };
 
 export type WorkoutType = {
@@ -21,7 +22,7 @@ export type WorkoutType = {
   video: string;
   _id: string;
   exercises: ExerciseType[];
-  progressWorkout: number;
+  // progressWorkout: number;
 };
 
 export type PathProp = {
@@ -85,7 +86,6 @@ export type NewWorkoutContentType = {
   [key: string]: {
     _id: string;
     name: string;
-    progressWorkout: number;
     video: string;
     exercises: ExerciseType[];
   };

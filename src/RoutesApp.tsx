@@ -21,16 +21,20 @@ export function RoutesApp() {
       setCourses(res);
     };
     getDataCourses();
+
   }, []);
 
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>
-        <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
+        <Route
+          path={path.WORKOUT}
+          element={<WorkoutPage courses={courses} />}
+        />
         <Route path={path.PROFILE} element={<ProfilePage />} />
       </Route>
 
-      <Route path={path.HOME} element={<HomePage courses={courses}/>}>
+      <Route path={path.HOME} element={<HomePage courses={courses} />}>
         <Route path={path.LOGIN} element={<SigninPage />} />
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>

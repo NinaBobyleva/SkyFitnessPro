@@ -18,9 +18,9 @@ export async function getCourses(): Promise<CourseProp[] | null> {
 
 // гет Воркаутс
 
-export async function getWorkouts(): Promise<WorkoutType[] | null> {
+export async function getWorkouts(userId: string, courseId: string): Promise<WorkoutType[] | null> {
   try {
-    const workoutsDB = ref(db, "workouts");
+    const workoutsDB = ref(db, "workouts",);
     const snapshot = await get(workoutsDB);
     if (snapshot.exists()) {
       return Object.values(snapshot.val());

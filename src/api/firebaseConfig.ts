@@ -3,13 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  // apiKey: "AIzaSyCmKzv45GaLayKz7FIqBUdcI_zmM3_TS4k",
-  // authDomain: "skyfitnesspro-994eb.firebaseapp.com",
-  // databaseURL: "https://skyfitnesspro-994eb-default-rtdb.europe-west1.firebasedatabase.app",
-  // projectId: "skyfitnesspro-994eb",
-  // storageBucket: "skyfitnesspro-994eb.appspot.com",
-  // messagingSenderId: "451994701296",
-  // appId: "1:451994701296:web:8d8bab195f51d07249a135"
   apiKey: "AIzaSyAVvUJPmgvz_wismeVYhzRFIH3afISoQQ8",
   authDomain: "fitnessskyproproject.firebaseapp.com",
   databaseURL: "https://fitnessskyproproject-default-rtdb.europe-west1.firebasedatabase.app",

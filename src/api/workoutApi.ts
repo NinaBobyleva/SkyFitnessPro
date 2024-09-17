@@ -2,6 +2,20 @@ import { get, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
 import { ExerciseType } from "../types";
 
+// export async function getWorkout(userId: string, courseId: string, workoutId: string): Promise<ExerciseType[] | null> {
+//     try {
+//         const userDB = ref(db, `/users/${userId}/courses/${courseId}/workouts/${workoutId}`);
+//         const snapshot = await get(userDB);
+//         if(snapshot.exists()){
+//             return Object.values(snapshot.val())
+//         }
+//         return null;
+//     } catch (error) {
+//         console.log(error)
+//         return null;
+//     }
+// }
+
 export async function getExercises(userId: string, courseId: string, workoutId: string): Promise<ExerciseType[] | null> {
     try {
         const userDB = ref(db, `/users/${userId}/courses/${courseId}/workouts/${workoutId}/exercises`);
@@ -15,5 +29,3 @@ export async function getExercises(userId: string, courseId: string, workoutId: 
         return null;
     }
 }
-
-// /users/8IAaqsZFyXdJGppMmTgiUgpgfhl2/courses/ab1c3f/workouts/3yvozj/exercises
