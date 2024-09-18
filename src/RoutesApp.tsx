@@ -12,8 +12,11 @@ import { getCourses } from "./api/coursesApi";
 import { CourseProp } from "./types";
 
 export function RoutesApp() {
-  const [isAuth, setIsAuth] = useState(true);
   const [courses, setCourses] = useState<CourseProp[]>([]);
+
+  const userData = localStorage.getItem('user');
+  const user = userData ? JSON.parse(userData) : null;
+  console.log(user);
 
   useEffect(() => {
     const getDataCourses = async () => {
@@ -26,7 +29,7 @@ export function RoutesApp() {
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
+      <Route element={<PrivateRoute user={user} />}>
         <Route
           path={path.WORKOUT}
           element={<WorkoutPage courses={courses} />}

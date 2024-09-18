@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { path } from "../../paths";
 
-export function PrivateRoute({isAuth}: {isAuth: boolean}) {
+export function PrivateRoute({user}: {user: object | null}) {
     
-    return isAuth ? <Outlet/> : <Navigate to={path.LOGIN} />
+    return user ? <Outlet/> : <Navigate to={path.LOGIN} />
 }
