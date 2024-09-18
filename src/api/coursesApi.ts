@@ -1,6 +1,6 @@
 import { get, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
-import { CourseProp, WorkoutType } from "../types";
+import { CourseProp, ExerciseType, WorkoutType } from "../types";
 
 export async function getCourses(): Promise<CourseProp[]> {
   try {
@@ -29,5 +29,19 @@ export async function getWorkouts(): Promise<WorkoutType[]> {
   } catch (error) {
     console.log(error);
     return [];
+  }
+}
+
+export async function getExercises(userId: string, courseId: string, workoutId: string): Promise<ExerciseType[]> {
+  try {
+      const userDB = ref(db, `/users/${userId}/courses/${courseId}/workouts/${workoutId}/exercises`);
+      const snapshot = await get(userDB);
+      if(snapshot.exists()){
+          return Object.values(snapshot.val())
+      }
+      return [];
+  } catch (error) {
+      console.log(error)
+      return [];
   }
 }

@@ -13,7 +13,7 @@ import { CourseProp } from "./types";
 
 export function RoutesApp() {
   const [isAuth, setIsAuth] = useState(true);
-  const [courses, setCourses] = useState<CourseProp[] | null>([]);
+  const [courses, setCourses] = useState<CourseProp[]>([]);
 
   useEffect(() => {
     const getDataCourses = async () => {

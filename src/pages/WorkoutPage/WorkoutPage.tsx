@@ -8,20 +8,20 @@ import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/Moda
 import { CourseProp, ExerciseType, WorkoutType } from "../../types";
 import { useParams } from "react-router-dom";
 import { getWorkouts } from "../../api/coursesApi";
-import { getExercises } from "../../api/workoutApi";
+import { getExercises } from "../../api/coursesApi";
 import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
 import { db } from "../../api/firebaseConfig";
 import { getProgress } from "../../utils/getProgress";
 import { getProgressCourse } from "../../utils/getProgressCourse";
 
-export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
+export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
-  console.log(exercises);
+
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
 
   const workout = workouts?.find((el) => el._id === id);
