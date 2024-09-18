@@ -1,4 +1,4 @@
-import { get, ref, set } from "firebase/database";
+import { get, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
 import { CourseProp, WorkoutType } from "../types";
 

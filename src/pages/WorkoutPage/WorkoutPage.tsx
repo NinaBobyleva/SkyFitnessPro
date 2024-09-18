@@ -13,11 +13,12 @@ import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
 import { db } from "../../api/firebaseConfig";
 import { getProgress } from "../../utils/getProgress";
+import { getProgressCourse } from "../../utils/getProgressCourse";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [workouts, setWorkouts] = useState<WorkoutType[] | null>([]);
+  const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
   console.log(exercises);
@@ -82,10 +83,13 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
       { exercises: exercises }
     );
 
-    // await update(
-    //   ref(db, `users/${uid}/courses/${courseId}/`),
-    //   { progressCourse: progressCourse }
-    // );
+    const progressCourse = getProgressCourse({exercises, workouts, workoutId});
+    console.log(progressCourse);
+
+    await update(
+      ref(db, `users/${uid}/courses/${courseId}/`),
+      { progressCourse: progressCourse }
+    );
 
     openSuccessModal();
   }
