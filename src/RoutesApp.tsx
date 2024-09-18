@@ -23,7 +23,6 @@ export function RoutesApp() {
       setCourses(res);
     };
     getDataCourses();
-
   }, []);
 
   return (

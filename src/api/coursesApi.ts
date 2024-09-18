@@ -45,3 +45,17 @@ export async function getExercises(userId: string, courseId: string, workoutId: 
       return [];
   }
 }
+
+export async function getCoursesUser(userId: string): Promise<ExerciseType[]> {
+  try {
+      const userDB = ref(db, `/users/${userId}/courses`);
+      const snapshot = await get(userDB);
+      if(snapshot.exists()){
+          return Object.values(snapshot.val())
+      }
+      return [];
+  } catch (error) {
+      console.log(error)
+      return [];
+  }
+}

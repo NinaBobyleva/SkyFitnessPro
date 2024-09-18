@@ -77,7 +77,7 @@ export type UserCourseType = {
   _id: string;
   nameEN: string;
   nameRU: string;
-  progress: string;
+  progressWorkout: string;
   workouts: UserWorkoutType[];
 };
 
