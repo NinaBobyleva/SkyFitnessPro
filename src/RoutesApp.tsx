@@ -12,8 +12,10 @@ import { getCourses } from "./api/coursesApi";
 import { CourseProp } from "./types";
 
 export function RoutesApp() {
-  const [isAuth, setIsAuth] = useState(true);
-  const [courses, setCourses] = useState<CourseProp[] | null>([]);
+  const [courses, setCourses] = useState<CourseProp[]>([]);
+
+  const userData = localStorage.getItem('user');
+  const user = userData ? JSON.parse(userData) : null;
 
   useEffect(() => {
     const getDataCourses = async () => {
@@ -25,12 +27,15 @@ export function RoutesApp() {
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
-        <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
+      <Route element={<PrivateRoute user={user} />}>
+        <Route
+          path={path.WORKOUT}
+          element={<WorkoutPage courses={courses} />}
+        />
         <Route path={path.PROFILE} element={<ProfilePage />} />
       </Route>
 
-      <Route path={path.HOME} element={<HomePage courses={courses}/>}>
+      <Route path={path.HOME} element={<HomePage courses={courses} />}>
         <Route path={path.LOGIN} element={<SigninPage />} />
         <Route path={path.SIGNUP} element={<SignupPage />} />
       </Route>
