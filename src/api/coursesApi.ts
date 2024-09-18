@@ -2,32 +2,32 @@ import { get, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
 import { CourseProp, WorkoutType } from "../types";
 
-export async function getCourses(): Promise<CourseProp[] | null> {
+export async function getCourses(): Promise<CourseProp[]> {
   try {
     const coursesDB = ref(db, "courses");
     const snapshot = await get(coursesDB);
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }
-    return null;
+    return [];
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 }
 
 // гет Воркаутс
 
-export async function getWorkouts(): Promise<WorkoutType[] | null> {
+export async function getWorkouts(): Promise<WorkoutType[]> {
   try {
     const workoutsDB = ref(db, "workouts",);
     const snapshot = await get(workoutsDB);
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }
-    return null;
+    return [];
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 }
