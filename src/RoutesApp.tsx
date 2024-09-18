@@ -16,7 +16,6 @@ export function RoutesApp() {
 
   const userData = localStorage.getItem('user');
   const user = userData ? JSON.parse(userData) : null;
-  console.log(user);
 
   useEffect(() => {
     const getDataCourses = async () => {
