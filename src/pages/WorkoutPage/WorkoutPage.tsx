@@ -12,6 +12,7 @@ import { getExercises } from "../../api/workoutApi";
 import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
 import { db } from "../../api/firebaseConfig";
+import { getProgress } from "../../utils/getProgress";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
   const [workouts, setWorkouts] = useState<WorkoutType[] | null>([]);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
+  console.log(exercises);
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
 
   const workout = workouts?.find((el) => el._id === id);
@@ -79,6 +81,12 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
       ref(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`),
       { exercises: exercises }
     );
+
+    // await update(
+    //   ref(db, `users/${uid}/courses/${courseId}/`),
+    //   { progressCourse: progressCourse }
+    // );
+
     openSuccessModal();
   }
   return (
@@ -99,24 +107,30 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] | null }) {
             Упражнения тренировки
           </h2>
           <div className="grid grid-flow-row gap-6 items-end md:grid-cols-2 md:gap-5 xl:grid-cols-3">
-            {exercises?.map((exercise, i) => {
-              const progress = Math.floor(
-                exercise.progressWorkout < exercise.quantity
-                  ? (exercise.progressWorkout / exercise.quantity) * 100
-                  : 100
-              )
-                .toString()
-                .concat("%");
+            {exercises.length > 0 ?
+            exercises?.map((exercise, i) => {
+              const progress = getProgress(exercise);
+              // Math.floor(
+              //   !exercise.progressWorkout ? 0 : exercise.progressWorkout < exercise.quantity
+              //   ? (exercise.progressWorkout / exercise.quantity) * 100
+              //   : 100
+              // )
+              //   .toString()
+              //   .concat("%");
               return (
                 <div key={i} className="lg:w-[320px] w-[283px]">
                   <WorkoutProgress title={exercise.name} progress={progress} />
                 </div>
               );
-            })}
+            }) : "Список упражнений пуст"}
           </div>
           <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
             <Button
-              title={exercises?.find(el => el.progressWorkout) ? "Обновить свой прогресс" : "Заполнить свой прогресс"}
+              title={
+                exercises?.find((el) => el.progressWorkout)
+                  ? "Обновить свой прогресс"
+                  : "Заполнить свой прогресс"
+              }
               onClick={toggleWorkoutProgressModal}
             />
           </div>
