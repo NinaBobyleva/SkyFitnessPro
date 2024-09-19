@@ -14,7 +14,6 @@ export function getProgressCourse(workoutsUser: WorkoutType[]) {
       workouts.push(true)
     }
   });
-  console.log("any", workouts);
 
   const completedWork = workouts.filter((w) => w === true).length;
   result = (completedWork / workouts.length) * 100;

@@ -20,10 +20,8 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const [workoutsUser, setWorkoutsUser] = useState<WorkoutType[]>([]);
-  // console.log(workouts);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
-  console.log(exercises);
 
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
 
@@ -54,10 +52,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
     const getDataExercises = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
-      // console.log(res);
-      if (res) {
-        setExercises(res);
-      }
+      setExercises(res);
     };
     const getDataWorkoutsByUser = async () => {
       const res = await getWorkoutsByUser(uid, String(courseId));

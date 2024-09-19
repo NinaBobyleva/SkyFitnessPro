@@ -16,8 +16,6 @@ export async function getCourses(): Promise<CourseProp[]> {
   }
 }
 
-// гет Воркаутс
-
 export async function getWorkouts(): Promise<WorkoutType[]> {
   try {
     const workoutsDB = ref(db, "workouts",);
