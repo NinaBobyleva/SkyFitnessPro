@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { CoursesPage } from "./pages/CoursesPage/CoursesPage";
-import { WorkoutPage } from "./pages/WorkoutPage/WorkoutPage";
+import { WorkoutPage } from "./pages/WorkoutPage/[course]/[courseid]/[id]/WorkoutPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { SigninPage } from "./pages/SigninPage/SigninPage";
 import { SignupPage } from "./pages/SignupPage/SignupPage";
@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { getCourses } from "./api/coursesApi";
 import { CourseProp } from "./types";
+import SelectionPage from "./pages/SelectionPage/[id]/SelectionPage";
 
 export function RoutesApp() {
   const [courses, setCourses] = useState<CourseProp[]>([]);
@@ -28,11 +29,9 @@ export function RoutesApp() {
   return (
     <Routes>
       <Route element={<PrivateRoute user={user} />}>
-        <Route
-          path={path.WORKOUT}
-          element={<WorkoutPage courses={courses} />}
-        />
-        <Route path={path.PROFILE} element={<ProfilePage />} />
+        <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
+        <Route path={path.SELECTION} element={<SelectionPage />} />
+        <Route path={path.PROFILE} element={<ProfilePage />} />  
       </Route>
 
       <Route path={path.HOME} element={<HomePage courses={courses} />}>

@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../../components/Button/Button";
-import Header from "../../components/Header/Header";
-import { Video } from "../../components/Video/Video";
-import WorkoutProgress from "../../components/WorkoutProgress/WorkoutProgress";
-import Wrapper from "../../components/Wrapper/Wrapper";
-import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/ModalWorkoutProgress";
-import { CourseProp, ExerciseType, WorkoutType } from "../../types";
+import { Button } from "../../../../../components/Button/Button";
+import Header from "../../../../../components/Header/Header";
+import { Video } from "../../../../../components/Video/Video";
+import WorkoutProgress from "../../../../../components/WorkoutProgress/WorkoutProgress";
+import Wrapper from "../../../../../components/Wrapper/Wrapper";
+import { ModalWorkoutProgress } from "../../../../../components/WorkoutProgressModal/ModalWorkoutProgress";
+import { CourseProp, ExerciseType, WorkoutType } from "../../../../../types";
 import { useParams } from "react-router-dom";
-import { getWorkouts } from "../../api/coursesApi";
-import { getExercises } from "../../api/coursesApi";
-import { Title } from "../../components/Title/Title";
+import { getWorkouts } from "../../../../../api/coursesApi";
+import { getExercises } from "../../../../../api/coursesApi";
+import { Title } from "../../../../../components/Title/Title";
 import { ref, update } from "firebase/database";
-import { db } from "../../api/firebaseConfig";
-import { getProgress } from "../../utils/getProgress";
-import { getProgressCourse } from "../../utils/getProgressCourse";
+import { db } from "../../../../../api/firebaseConfig";
+import { getProgress } from "../../../../../utils/getProgress";
+import { getProgressCourse } from "../../../../../utils/getProgressCourse";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isOpen, setIsOpen] = useState(false);

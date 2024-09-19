@@ -18,6 +18,7 @@ export type ExerciseType = {
 };
 
 export type WorkoutType = {
+  progressWorkout: number;
   name: string;
   video: string;
   _id: string;
