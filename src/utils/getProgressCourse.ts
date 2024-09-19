@@ -1,14 +1,8 @@
 import { WorkoutType } from "../types";
 
-// type GetProgressCourseProp = {
-//   // exercises: ExerciseType[];
-//   workoutsUser: WorkoutType[];
-//   // workoutId: string | undefined;
-// };
-
 export function getProgressCourse(workoutsUser: WorkoutType[]) {
   let result = 0;
-  let workouts: any = [];
+  let workouts: boolean[] = [];
 
   workoutsUser.forEach((workout) => {
     if (workout.exercises) {
@@ -17,9 +11,10 @@ export function getProgressCourse(workoutsUser: WorkoutType[]) {
       ).length;
       workouts.push(completed === workout.exercises.length);
     } else {
-      workouts.push(true);
+      workouts.push(true)
     }
   });
+  console.log("any", workouts);
 
   const completedWork = workouts.filter((w) => w === true).length;
   result = (completedWork / workouts.length) * 100;
