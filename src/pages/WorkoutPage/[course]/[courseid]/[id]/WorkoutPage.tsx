@@ -7,13 +7,12 @@ import Wrapper from "../../../../../components/Wrapper/Wrapper";
 import { ModalWorkoutProgress } from "../../../../../components/WorkoutProgressModal/ModalWorkoutProgress";
 import { CourseProp, ExerciseType, WorkoutType } from "../../../../../types";
 import { useParams } from "react-router-dom";
-import { getWorkouts, getWorkoutsByUser } from "../../api/coursesApi";
-import { getExercises } from "../../api/coursesApi";
-import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
 import { db } from "../../../../../api/firebaseConfig";
 import { getProgress } from "../../../../../utils/getProgress";
 import { getProgressCourse } from "../../../../../utils/getProgressCourse";
+import { getExercises, getWorkouts, getWorkoutsByUser } from "../../../../../api/coursesApi";
+import { Title } from "../../../../../components/Title/Title";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isOpen, setIsOpen] = useState(false);
