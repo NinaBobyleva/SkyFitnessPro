@@ -26,4 +26,4 @@ const auth = getAuth(app)
 const db = getDatabase(app)
 // DataBase
 
-export { auth, db }
+export { auth, db, app }
