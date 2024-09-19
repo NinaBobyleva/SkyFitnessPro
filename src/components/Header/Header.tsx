@@ -5,13 +5,14 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import { path } from "../../paths";
 import UserModal from "../UserModal/UserModal";
-
-
+import { get, getDatabase, ref } from 'firebase/database';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [displayName, setDisplayName] = useState('');
   const location = useLocation();
+  const database = getDatabase();
 
   const toggleDropdown = () => {
     setIsOpen(prevState => !prevState);
@@ -19,12 +20,18 @@ export default function Header() {
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+      if (user) {
+        const displayName = await get(ref(database, `users/${user.uid}/displayName`));
+        setDisplayName(displayName.val() || '');
+      } else {
+        setDisplayName('');
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [database]);
 
   return (
     <div className="flex justify-between mx-auto py-10 md:pt-[50px] md:pb-14 lg:max-w-[1440px] px-4 md:px-8 main:px-[140px]">
@@ -46,8 +53,8 @@ export default function Header() {
               <div className=" w-[36px] h-[36px] lg:w-[42px] lg:h-[42px] bg-user-icon bg-cover  bg-no-repeat bg-center" />
               <div className="flex items-center">
                 <img src={user.photoURL || '/public/img/user-icon.svg'} alt="Аватар пользователя" className="w-10 h-10 rounded-full mr-2" />
-                <p className="hidden md:block text-2x1  font-roboto-400 pr-[11px]">
-                  {user.email}
+                <p className="hidden md:block text-2x1 font-roboto-400 pr-[11px]">
+                  {displayName || user.email}
                 </p>
                 {!location.pathname.includes('/profile') && (
                   <svg className={

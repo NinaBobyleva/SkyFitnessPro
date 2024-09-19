@@ -17,7 +17,7 @@ export function ModalWorkoutProgress({exercises, modalRef}: {exercises: Exercise
         <h3 className="font-skyeng text-[32px] text-black mb-12">
           Мой прогресс
         </h3>
-        <div className="w-[237px] lg:w-[320px] max-h-[350px]  mb-[34px] overflow-x-hidden">
+        <div className="w-[237px] lg:w-[320px] max-h-[350px]  mb-[34px] overflow-x-hidden pr-4">
           {exercises?.map((el, i) => {
             return(
               <InputProgressForm key={i} el={el.name} />
@@ -29,3 +29,4 @@ export function ModalWorkoutProgress({exercises, modalRef}: {exercises: Exercise
     </ModalWrapper>
   );
 }
+

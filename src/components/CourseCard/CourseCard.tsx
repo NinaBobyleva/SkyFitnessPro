@@ -1,8 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useState,  useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
 import { CourseProp } from '../../types';
-import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
+import SubscribedModal from '../SubscribedModal/SubscribedModal';
+import { addUserCourse } from '../../utils/userData';
+import { auth } from '../../api/firebaseConfig';
+import { removeSubscribedCourse } from '../../utils/removeSubscribedCourse';
+
 
 type CourseCardProp = {
   imgURL: string;
@@ -13,35 +19,53 @@ type CourseCardProp = {
   course?: CourseProp;
 };
 
-export default function CourseCard({
+const CourseCard: React.FC<CourseCardProp> = ({
   courseId,
   progress,
   imgURL,
   title,
   isSubscribed,
-}: CourseCardProp) {
+  course,
+}) => {
   const navigate = useNavigate();
+  const currentUser = auth.currentUser;
+  const [isSuccessMessageVisible, setIsSuccessMessageVisible] = useState(false);
+  
+
+  const handleCardClick = () => {
+    if (!isSubscribed) {
+      navigate(`/course/${courseId}`);
+    }
+  };
+
+  const showSuccessMessage = () => {
+    setIsSuccessMessageVisible(true);
+  };
+
+  const hideModal = () => {
+    setIsSuccessMessageVisible(false);
+  };
+
+  useEffect(() => {
+    if (isSuccessMessageVisible) {
+      const timer = setTimeout(() => {
+        hideModal();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccessMessageVisible]);
 
   return (
-    <div
-      onClick={() => navigate(`/course/${courseId}`)}
-      className="relative w-[360px] h-[501px] bg-[#FFFFFF] rounded-[30px] hover:scale-104 duration-300 hover:shadow-lg"
-      style={{
-        padding: '0px 0px 15px 0px',
-        gap: '40px',
-      }}
-    >
-      <div title="">
-        <img
-          className="rounded-[30px] h-[325px] w-full object-cover"
-          src={`/img/${imgURL}.png`}
-          alt={title}
-          width={360}
-          height={325}
-        />
-
+    <div onClick={handleCardClick} className="relative w-[360px] bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out" style={{ padding: '0px 0px 15px 0px', gap: '40px' }}>
+      <div>
+        <img className="rounded-[30px] h-[325px] w-full object-cover" src={`/img/${imgURL}.png`} alt={title} width={360} height={325} />
         {isSubscribed ? (
           <svg
+            onClick={(e) => {
+              e.stopPropagation();
+              removeSubscribedCourse(courseId);
+            }}
             className="absolute w-8 h-8 right-[20px] top-[20px] z-10 cursor-custom"
           >
             <g>
@@ -51,6 +75,15 @@ export default function CourseCard({
           </svg>
         ) : (
           <svg
+            onClick={(e) => {
+              e.stopPropagation();
+              addUserCourse({
+                userId: currentUser?.uid,
+                courseId: String(course?._id),
+                course: course!,
+              });
+              showSuccessMessage();
+            }}
             className="absolute w-8 h-8 right-[20px] top-[20px] z-10 cursor-custom"
           >
             <g>
@@ -60,39 +93,37 @@ export default function CourseCard({
           </svg>
         )}
       </div>
+      {isSuccessMessageVisible &&
+        createPortal(
+          <SubscribedModal onClick={hideModal} />,
+          document.getElementById('modal-root') || document.body
+        )}
       <div className="flex flex-col px-[30px] pt-6 pb-4 gap-y-[18px]">
-        <h2 className="font-roboto-500 text-[24px] lg:text-[28px] leading-8">
-          {title}
-        </h2>
+        <h2 className="font-roboto-500 text-[24px] lg:text-[28px] leading-8 text-gray-800">{title}</h2>
         <div className="flex flex-wrap gap-1.5">
-          <div className="flex shrink-0 items-center gap-x-1.5 bg-[#F7F7F7] rounded-[30px] p-[10px]">
-            <svg className="w-[16px] h-[16px]">
+          <div className="flex shrink-0 items-center gap-x-1.5 bg-gray-200 rounded-[30px] p-[10px]">
+            <svg className="w-[16px] h-[16px] text-gray-600">
               <use xlinkHref={`/img/sprite.svg#icon-calendar`}></use>
             </svg>
-            <p className="text-[16px] leading-[110%] lg:text-[18px]">25 дней</p>
+            <p className="text-[16px] leading-[110%] lg:text-[18px] text-gray-600">25 дней</p>
           </div>
-          <div className="flex shrink-0 items-center gap-x-1.5 bg-[#F7F7F7] rounded-[30px] p-[10px]">
-            <svg className="w-[16px] h-[16px]">
+          <div className="flex shrink-0 items-center gap-x-1.5 bg-gray-200 rounded-[30px] p-[10px]">
+            <svg className="w-[16px] h-[16px] text-gray-600">
               <use xlinkHref={`/img/sprite.svg#icon-time`}></use>
             </svg>
-            <p className="text-base leading-[110%] lg:text-[18px]">
-              20-50 мин/день
-            </p>
+            <p className="text-base leading-[110%] lg:text-[18px] text-gray-600">20-50 мин/день</p>
           </div>
-          <div className="flex shrink-0 items-center gap-x-1.5 bg-[#F7F7F7] rounded-[30px] p-[10px]">
-            <svg className="w-[16px] h-[16px]">
+          <div className="flex shrink-0 items-center gap-x-1.5 bg-gray-200 rounded-[30px] p-[10px]">
+            <svg className="w-[16px] h-[16px] text-gray-600">
               <use xlinkHref={`/img/sprite.svg#icon-level`}></use>
             </svg>
-            <p className="text-base leading-[110%] lg:text-[18px]">Сложность</p>
+            <p className="text-base leading-[110%] lg:text-[18px] text-gray-600">Сложность</p>
           </div>
         </div>
         {progress && (
           <div className="flex flex-col gap-10">
             <WorkoutProgress title="Прогресс" progress={progress} />
-            <Link
-              onClick={e => e.stopPropagation()}
-              to={`/selection/${courseId}`}
-            >
+            <Link to={`/selection/${courseId}`}>
               <Button title="Продолжить" />
             </Link>
           </div>
@@ -100,4 +131,6 @@ export default function CourseCard({
       </div>
     </div>
   );
-}
+};
+
+export default CourseCard;

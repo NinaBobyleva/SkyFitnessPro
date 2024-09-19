@@ -1,8 +1,9 @@
 export const path = {
     HOME: "/",
     COURSE: "/course/:id",
-    WORKOUT: "/workout/:id",
+    WORKOUT: "/workout/course/:courseId/:id",
     PROFILE: "/profile",
     LOGIN: "/signin",
-    SIGNUP: "/signup"
+    SIGNUP: "/signup",
+    SELECTION: "/selection/:id"
 }
