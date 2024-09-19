@@ -11,12 +11,18 @@ export function getProgressCourse(workoutsUser: WorkoutType[]) {
   let workouts: any = [];
 
   workoutsUser.forEach((workout) => {
-    const completed = workout.exercises.filter((el) => el.progressWorkout === el.quantity).length;
-    workouts.push(completed === workout.exercises.length);
+    if (workout.exercises) {
+      const completed = workout.exercises.filter(
+        (el) => el.progressWorkout === el.quantity
+      ).length;
+      workouts.push(completed === workout.exercises.length);
+    } else {
+      workouts.push(true);
+    }
   });
-  
+
   const completedWork = workouts.filter((w) => w === true).length;
-  result = completedWork / workouts.length * 100
-  
+  result = (completedWork / workouts.length) * 100;
+
   return result;
 }
