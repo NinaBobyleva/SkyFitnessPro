@@ -7,9 +7,7 @@ export function getProgress(exercise: ExerciseType) {
       : exercise.progressWorkout < exercise.quantity
       ? (exercise.progressWorkout / exercise.quantity) * 100
       : 100
-  )
-    .toString()
-    .concat("%");
-    
-    return progresses;
+  );
+
+  return progresses;
 }

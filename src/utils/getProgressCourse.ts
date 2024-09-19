@@ -1,38 +1,22 @@
-import { ExerciseType, WorkoutType } from "../types";
+import { WorkoutType } from "../types";
 
-type GetProgressCourseProp = {
-  exercises: ExerciseType[];
-  workouts: WorkoutType[];
-  workoutId: string | undefined;
-};
+// type GetProgressCourseProp = {
+//   // exercises: ExerciseType[];
+//   workoutsUser: WorkoutType[];
+//   // workoutId: string | undefined;
+// };
 
-export function getProgressCourse({
-  exercises,
-  workouts,
-  workoutId,
-}: GetProgressCourseProp) {
-  const arrAvr = exercises.map((exercise) =>
-    exercise.progressWorkout < exercise.quantity
-      ? (exercise.progressWorkout / exercise.quantity) * 100
-      : 100
-  );
+export function getProgressCourse(workoutsUser: WorkoutType[]) {
+  let result = 0;
+  let workouts: any = [];
 
-  console.log(arrAvr);
-
-  const prog = exercises.map((el) => el.progressWorkout);
-  console.log(prog);
-
-  const workoutUser = workouts?.filter((el) => el._id === workoutId);
-  console.log(workoutUser);
-
-  const progressWorkoutList = workoutUser?.map((el) =>
-    el._id === workoutId ? arrAvr : prog
-  );
-
-  const progressCourse = Math.floor(
-    progressWorkoutList[0].reduce((acc, number) => acc + number) /
-      workoutUser.length
-  );
-
-  return progressCourse;
+  workoutsUser.forEach((workout) => {
+    const completed = workout.exercises.filter((el) => el.progressWorkout === el.quantity).length;
+    workouts.push(completed === workout.exercises.length);
+  });
+  
+  const completedWork = workouts.filter((w) => w === true).length;
+  result = completedWork / workouts.length * 100
+  
+  return result;
 }

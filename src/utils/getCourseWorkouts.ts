@@ -33,6 +33,7 @@ export async function getCourseWorkouts({
     const newKey: string = workout[0];
     workoutsList[newKey] = workoutNewContent;
   });
+  console.log(workoutsList);
 
   return workoutsList;
 }

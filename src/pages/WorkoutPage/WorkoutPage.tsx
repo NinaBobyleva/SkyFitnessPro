@@ -7,7 +7,7 @@ import Wrapper from "../../components/Wrapper/Wrapper";
 import { ModalWorkoutProgress } from "../../components/WorkoutProgressModal/ModalWorkoutProgress";
 import { CourseProp, ExerciseType, WorkoutType } from "../../types";
 import { useParams } from "react-router-dom";
-import { getWorkouts } from "../../api/coursesApi";
+import { getWorkouts, getWorkoutsByUser } from "../../api/coursesApi";
 import { getExercises } from "../../api/coursesApi";
 import { Title } from "../../components/Title/Title";
 import { ref, update } from "firebase/database";
@@ -19,8 +19,11 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
+  const [workoutsUser, setWorkoutsUser] = useState<WorkoutType[]>([]);
+  // console.log(workouts);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
+  console.log(exercises);
 
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
 
@@ -51,11 +54,18 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
     const getDataExercises = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
+      // console.log(res);
       if (res) {
         setExercises(res);
       }
     };
+    const getDataWorkoutsByUser = async () => {
+      const res = await getWorkoutsByUser(uid, String(courseId));
+      console.log("getDataWorkoutsByUser", res);
+      setWorkoutsUser(res);
+    };
 
+    getDataWorkoutsByUser();
     getDataWorkouts();
     getDataExercises();
   }, [courseId, workoutId]);
@@ -83,13 +93,12 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
       { exercises: exercises }
     );
 
-    const progressCourse = getProgressCourse({exercises, workouts, workoutId});
-    console.log(progressCourse);
+    const progressCourse = getProgressCourse(workoutsUser);
+    console.log("getProgressCourse", progressCourse);
 
-    await update(
-      ref(db, `users/${uid}/courses/${courseId}/`),
-      { progressCourse: progressCourse }
-    );
+    await update(ref(db, `users/${uid}/courses/${courseId}/`), {
+      progressCourse: progressCourse,
+    });
 
     openSuccessModal();
   }
@@ -111,22 +120,19 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
             Упражнения тренировки
           </h2>
           <div className="grid grid-flow-row gap-6 items-end md:grid-cols-2 md:gap-5 xl:grid-cols-3">
-            {exercises.length > 0 ?
-            exercises?.map((exercise, i) => {
-              const progress = getProgress(exercise);
-              // Math.floor(
-              //   !exercise.progressWorkout ? 0 : exercise.progressWorkout < exercise.quantity
-              //   ? (exercise.progressWorkout / exercise.quantity) * 100
-              //   : 100
-              // )
-              //   .toString()
-              //   .concat("%");
-              return (
-                <div key={i} className="lg:w-[320px] w-[283px]">
-                  <WorkoutProgress title={exercise.name} progress={progress} />
-                </div>
-              );
-            }) : "Список упражнений пуст"}
+            {exercises.length > 0
+              ? exercises?.map((exercise, i) => {
+                  const progress = getProgress(exercise).toString().concat("%");
+                  return (
+                    <div key={i} className="lg:w-[320px] w-[283px]">
+                      <WorkoutProgress
+                        title={exercise.name}
+                        progress={progress}
+                      />
+                    </div>
+                  );
+                })
+              : "Список упражнений пуст"}
           </div>
           <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
             <Button
