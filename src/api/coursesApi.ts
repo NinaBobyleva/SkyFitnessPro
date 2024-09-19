@@ -16,8 +16,6 @@ export async function getCourses(): Promise<CourseProp[]> {
   }
 }
 
-// гет Воркаутс
-
 export async function getWorkouts(): Promise<WorkoutType[]> {
   try {
     const workoutsDB = ref(db, "workouts",);
@@ -46,9 +44,9 @@ export async function getExercises(userId: string, courseId: string, workoutId: 
   }
 }
 
-export async function getCoursesUser(userId: string): Promise<ExerciseType[]> {
+export async function getWorkoutsByUser(userId: string, courseId: string): Promise<WorkoutType[]> {
   try {
-      const userDB = ref(db, `/users/${userId}/courses`);
+      const userDB = ref(db, `/users/${userId}/courses/${courseId}/workouts`);
       const snapshot = await get(userDB);
       if(snapshot.exists()){
           return Object.values(snapshot.val())
