@@ -12,6 +12,9 @@ const config: Config = {
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/components/$1",
   },
+  transform: {
+    '^.+\\.(svg)$': '<rootDir>/node_modules/jest-transform-stub',
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 

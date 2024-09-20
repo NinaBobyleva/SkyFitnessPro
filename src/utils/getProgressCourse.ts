@@ -4,6 +4,8 @@ export function getProgressCourse(workoutsUser: WorkoutType[]) {
   let result = 0;
   let workouts: boolean[] = [];
 
+  console.log("workoutsUser", workoutsUser);
+
   workoutsUser.forEach((workout) => {
     if (workout.exercises) {
       const completed = workout.exercises.filter(

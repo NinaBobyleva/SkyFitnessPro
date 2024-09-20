@@ -94,10 +94,10 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
         <section className="z-10 mt-[156px] xl:mt-[102px] md:mt-[256px]">
           <div className="rounded-[30px] p-[40px] md:p-[30px] lg:p-10 bg-white shadow-def">
             <div className="max-w-[465px] flex flex-col xl:relative xl:z-20">
-              <h2 className="text-[60px] md:text-5xl text-black font-roboto-500 font-semibold leading-none mb-[28px]">
+              <h2 className=" lg:text-[60px] md:text-5xl text-black font-roboto-500 font-semibold leading-none mb-[28px] sm:/xl:/ect text-[32px]">
                 Начните путь <br /> к новому телу
               </h2>
-              <div className="mb-[28px] h-[178px] relative">
+              <div className="mb-[28px] md:h-[178px] relative">
                 <ul className="flex flex-col list-inside">
                   <li className="list-disc space-y-3 font-roboto-400 text-[#585959] leading-none text-lg md:text-2xl md:pl-6">
                     проработка всех групп мышц
@@ -134,7 +134,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
             <div
               className="relative xl:z-10 -z-10 flex justify-end
               xl:bottom-[550px] md:bottom-[730px] bottom-[700px] 
-              lg:left-[30px] md:left-[0px] left-[60px]"
+              lg:left-[30px] md:left-[60px] left-[60px]"
             >
               <img
                 className="[clip:rect(auto,auto,390px,auto)] lg:[clip:rect(auto,auto,450px,auto)] right-[35px] top-[195px]
