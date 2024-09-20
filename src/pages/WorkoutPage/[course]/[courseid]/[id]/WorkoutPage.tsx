@@ -11,7 +11,7 @@ import { ref, update } from "firebase/database";
 import { db } from "../../../../../api/firebaseConfig";
 import { getProgress } from "../../../../../utils/getProgress";
 import { getProgressCourse } from "../../../../../utils/getProgressCourse";
-import { getExercises, getWorkouts, getWorkoutsByUser } from "../../../../../api/coursesApi";
+import { getExercises, getWorkoutsByUser } from "../../../../../api/coursesApi";
 import { Title } from "../../../../../components/Title/Title";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
@@ -48,6 +48,11 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
       const res = await getExercises(uid, String(courseId), String(workoutId));
       setExercises(res);
     };
+
+    getDataExercises();
+  }, [courseId, workoutId, uid]);
+
+  useEffect(() => {
     const getDataWorkoutsByUser = async () => {
       const res = await getWorkoutsByUser(uid, String(courseId));
       console.log("getDataWorkoutsByUser", res);
@@ -55,8 +60,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
 
     getDataWorkoutsByUser();
-    getDataExercises();
-  }, [courseId, workoutId]);
+  }, [uid, courseId, exercises]);
 
   const toggleWorkoutProgressModal = () => {
     setIsOpen((prev) => !prev);
@@ -81,7 +85,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
       { exercises: exercises }
     );
 
-    const progressCourse = getProgressCourse(workoutsUser);
+    const progressCourse = await getProgressCourse(uid, String(courseId));
     console.log("getProgressCourse", progressCourse);
 
     await update(ref(db, `users/${uid}/courses/${courseId}/`), {

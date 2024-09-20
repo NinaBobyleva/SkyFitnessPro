@@ -22,18 +22,16 @@ export async function getCourseWorkouts({
     .catch((error) => {
       console.error(error);
     });
-  console.log(arrAllWorkouts);
-  const courseWorkouts = arrAllWorkouts.filter((workout) =>
+    
+    const courseWorkouts = arrAllWorkouts.filter((workout) =>
     course.workouts.includes(workout[0])
   );
-  console.log(courseWorkouts);
+  
   Object.values(courseWorkouts).forEach((workout) => {
-    console.log(workout);
     const workoutNewContent = { ...workout[1] };
     const newKey: string = workout[0];
     workoutsList[newKey] = workoutNewContent;
   });
-  console.log(workoutsList);
 
   return workoutsList;
 }
