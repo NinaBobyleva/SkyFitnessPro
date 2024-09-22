@@ -7,7 +7,7 @@ const exercise = {
 };
 
 describe("Функция расчета прогресса тренировки", () => {
-  it("", () => {
+  it("Корректно расчитывает прогресс", () => {
     const result = getProgress(exercise);
     expect(result).toBe(100);
   });
