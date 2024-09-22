@@ -3,9 +3,10 @@ import { Button } from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import { CourseProp } from "../../types";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { auth } from "../../api/firebaseConfig";
 import { addUserCourse } from "../../utils/userData";
+import { path } from "../../paths";
 
 export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
   const [color, setColor] = useState("bg-white");
@@ -128,7 +129,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
                   }}
                 />
               ) : (
-                <Button title="Войдите чтобы добавить курс" />
+                <Link to={path.LOGIN}><Button title="Войдите чтобы добавить курс" /></Link>
               )}
             </div>
             <div
