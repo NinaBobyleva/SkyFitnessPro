@@ -7,8 +7,9 @@ export default {
         main: '1440px',
       },
       fontFamily: {
-        'roboto-400': 'var(--font-roboto-400)',
-        'roboto-500': 'var(--font-roboto-500)',
+        'sans': ['Roboto', 'sans-serif']
+        // 'roboto-400': 'var(--font-roboto-400)',
+        // 'roboto-500': 'var(--font-roboto-500)',
       },
       colors: {
         background: "#FAFAFA",
