@@ -1,6 +1,7 @@
 import { ExerciseType } from "../types";
 
 export function getProgress(exercise: ExerciseType) {
+  console.log(exercise);
   const progresses = Math.floor(
     !exercise.progressWorkout
       ? 0

@@ -1,31 +1,31 @@
-import { app, db } from '../../../api/firebaseConfig';
-import { useNavigate, useParams } from 'react-router-dom';
-import { WorkoutType } from '../../../types';
-import { getAuth } from 'firebase/auth';
-import { onValue, ref } from 'firebase/database';
-import { useEffect, useState } from 'react';
-import WorkoutItem from '../../../components/WorkoutItem/WorkoutItem';
+import { app, db } from "../../../api/firebaseConfig";
+import { useNavigate, useParams } from "react-router-dom";
+import { WorkoutType } from "../../../types";
+import { getAuth } from "firebase/auth";
+import { onValue, ref } from "firebase/database";
+import { useEffect, useState } from "react";
+import WorkoutItem from "../../../components/WorkoutItem/WorkoutItem";
 
 export default function SelectionPage() {
-  const { id: courseId } = useParams<{ id: string }>(); 
+  const { id: courseId } = useParams<{ id: string }>();
   const auth = getAuth(app);
-  const [workouts, setWorkouts] = useState<WorkoutType[]>([]); 
+  const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!auth.currentUser?.uid) return;
-    
+
     const dbRef = ref(db, `users/${auth.currentUser?.uid}/courses/${courseId}`);
-    
+
     const unsubscribe = onValue(dbRef, (snapshot) => {
       if (snapshot.exists()) {
         const course = snapshot.val();
-        console.log('Course data:', course); 
+        console.log("Course data:", course);
         const workoutList: WorkoutType[] = Object.values(course.workouts || {});
         workoutList.sort((a, b) => (a.name > b.name ? 1 : -1));
         setWorkouts(workoutList);
       } else {
-        console.log('No data available');
+        console.log("No data available");
       }
     });
 
@@ -45,11 +45,17 @@ export default function SelectionPage() {
 
         <ul className="max-h-[360px] mb-[34px] overflow-y-scroll">
           {workouts.map((workout) => {
-            const shortWorkoutName = workout.name.split('/')[0];
+            const shortWorkoutName = workout.name.split("/")[0];
+            let progress;
+            if (workout.exercises) {
+              progress = workout.exercises.find(
+                (el) => el.progressWorkout === el.quantity
+              );
+            }
             return (
               <WorkoutItem
                 key={workout._id}
-                isDone={workout.progressWorkout === 100}
+                progress={progress}
                 setSelected={setSelected}
                 workoutName={shortWorkoutName}
                 id={workout._id}

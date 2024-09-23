@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент Header Успешный рендер Header 1`] = `
+<div
+  className="flex justify-between mx-auto py-10 md:pt-[50px] md:pb-14 lg:max-w-[1440px] px-4 md:px-8 main:px-[140px]"
+>
+  <div>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        alt="logo"
+        className="w-[220px] h-[35px]"
+        src=""
+      />
+    </a>
+    <p
+      className="font-roboto-400 text-lg hidden md:block pt-3.5 text-[#585959]"
+    >
+      Онлайн-тренировки для занятий дома
+    </p>
+  </div>
+  <div
+    className="w-[83px] md:w-[103px]"
+  >
+    <a
+      href="/signin"
+      onClick={[Function]}
+    >
+      <button
+        className="justify-self-center font-roboto-400 text-lg leading-4 rounded-full w-full h-9 py-2 px-4 md:h-[52px] md:px-5 bg-lime  text-black hover:bg-limeHover active:bg-black active:text-white cursor-custom"
+      >
+        Войти
+      </button>
+    </a>
+  </div>
+</div>
+`;

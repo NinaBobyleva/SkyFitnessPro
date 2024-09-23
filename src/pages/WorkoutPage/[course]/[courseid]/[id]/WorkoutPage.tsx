@@ -11,20 +11,19 @@ import { ref, update } from "firebase/database";
 import { db } from "../../../../../api/firebaseConfig";
 import { getProgress } from "../../../../../utils/getProgress";
 import { getProgressCourse } from "../../../../../utils/getProgressCourse";
-import { getExercises, getWorkouts, getWorkoutsByUser } from "../../../../../api/coursesApi";
+import { getExercises, getWorkoutsByUser } from "../../../../../api/coursesApi";
 import { Title } from "../../../../../components/Title/Title";
 
 export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const [workoutsUser, setWorkoutsUser] = useState<WorkoutType[]>([]);
   const { id } = useParams();
   const [exercises, setExercises] = useState<ExerciseType[]>([]);
 
   const uid = JSON.parse(localStorage.getItem("user") || "").uid;
 
-  const workout = workouts?.find((el) => el._id === id);
+  const workout = workoutsUser?.find((el) => el._id === id);
 
   const courseUser = courses?.find((course) =>
     course.workouts.includes(String(id))
@@ -45,14 +44,15 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   }
 
   useEffect(() => {
-    const getDataWorkouts = async () => {
-      const res = await getWorkouts();
-      setWorkouts(res);
-    };
     const getDataExercises = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
       setExercises(res);
     };
+
+    getDataExercises();
+  }, [courseId, workoutId, uid]);
+
+  useEffect(() => {
     const getDataWorkoutsByUser = async () => {
       const res = await getWorkoutsByUser(uid, String(courseId));
       console.log("getDataWorkoutsByUser", res);
@@ -60,9 +60,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
 
     getDataWorkoutsByUser();
-    getDataWorkouts();
-    getDataExercises();
-  }, [courseId, workoutId]);
+  }, [uid, courseId, exercises]);
 
   const toggleWorkoutProgressModal = () => {
     setIsOpen((prev) => !prev);
@@ -87,7 +85,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
       { exercises: exercises }
     );
 
-    const progressCourse = getProgressCourse(workoutsUser);
+    const progressCourse = await getProgressCourse(uid, String(courseId));
     console.log("getProgressCourse", progressCourse);
 
     await update(ref(db, `users/${uid}/courses/${courseId}/`), {
@@ -102,7 +100,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
       <Wrapper>
         <section>
           <Title title={courseUser?.nameRU} />
-          <p className="text-black text-[32px] font-roboto-400 font-normal mb-6 lg:mb-10">
+          <p className="text-black md:text-[32px] text-[18px] font-roboto-400 font-normal mb-6 lg:mb-10">
             {workout?.name}
           </p>
           <div className="h-[189px] md:h-[639px] rounded-[30px] mb-6 lg:mb-10">
