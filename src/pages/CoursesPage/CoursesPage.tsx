@@ -121,6 +121,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
                 <Button
                   title="Добавить курс"
                   onClick={() => {
+                    console.log(course);
                     addUserCourse({
                       userId: currentUser?.uid,
                       courseId: String(course?._id),

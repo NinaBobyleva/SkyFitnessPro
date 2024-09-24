@@ -8,11 +8,13 @@ import { path } from "../../paths";
 import { authUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import { getErrorText } from "../../utils/getErrorText";
 
 export function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [errorText, setErrorText] = useState('');
   const navigate = useNavigate();
 
   const {loginUser} = useUser();
@@ -31,11 +33,11 @@ export function SigninPage() {
       loginUser(user);
       navigate(path.HOME);
     } catch (error) {
-      // if (error) {
-      //   return setError(true);
-      // }
       if (error instanceof Error) {
-        console.log(error.message);
+        if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+          setErrorText(error.message);
+        }
+        error && getErrorText({errorName: error.message, setError: setError});
       }
     }
   };
@@ -51,14 +53,14 @@ export function SigninPage() {
             onChange={(e) => onChangeInput(e, setPassword)}
             placeholder="Пароль"
           />
-          {/* {error && (
+          {errorText ? (
             <p className="text-rose-500 text-center mt-1">
-              Логин и пароль не совпадают.
+              Пароль введен не верно.
               <span className="underline cursor-custom">
                 Восстановить пароль?
               </span>
             </p>
-          )} */}
+          ) : (<p className="text-rose-500 mt-1 text-center">{error}</p>)}
         </div>
 
         <div className="space-y-2.5">
