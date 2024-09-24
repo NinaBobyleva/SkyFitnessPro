@@ -99,7 +99,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
   }
   return (
     <>
-      <Header />
+      <Header/>
       <Wrapper>
         <section>
           <Title title={courseUser?.nameRU} />

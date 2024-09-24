@@ -5,5 +5,6 @@ export const path = {
     PROFILE: "/profile",
     LOGIN: "/signin",
     SIGNUP: "/signup",
-    SELECTION: "/selection/:id"
+    SELECTION: "/selection/:id",
+    RESET: "/reset"
 }

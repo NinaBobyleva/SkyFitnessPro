@@ -90,3 +90,8 @@ export type NewWorkoutContentType = {
     exercises: ExerciseType[];
   };
 };
+
+export type ChangePasswordType = {
+  password: string;
+  repeatPassword: string;
+};

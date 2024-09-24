@@ -8,6 +8,7 @@ import SubscribedModal from '../SubscribedModal/SubscribedModal';
 import { addUserCourse } from '../../utils/userData';
 import { auth } from '../../api/firebaseConfig';
 import { removeSubscribedCourse } from '../../utils/removeSubscribedCourse';
+import { path } from '../../paths';
 
 
 type CourseCardProp = {
@@ -17,6 +18,7 @@ type CourseCardProp = {
   progress?: string;
   courseId: string;
   course?: CourseProp;
+  
 };
 
 const CourseCard: React.FC<CourseCardProp> = ({
@@ -26,6 +28,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
   title,
   isSubscribed,
   course,
+ 
 }) => {
   const navigate = useNavigate();
   const currentUser = auth.currentUser;
@@ -56,6 +59,28 @@ const CourseCard: React.FC<CourseCardProp> = ({
     }
   }, [isSuccessMessageVisible]);
 
+  const handleSubscribeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    console.log('currentUser', currentUser)
+    if (!currentUser) {
+      return navigate(path.LOGIN);
+    } 
+
+    if (isSubscribed) {
+      removeSubscribedCourse
+    } else {
+      addUserCourse({
+        userId: currentUser?.uid,
+        courseId: String(course?._id),
+        course: course!,
+      });
+      showSuccessMessage();
+    }
+  };
+
+
+
   return (
     <div onClick={handleCardClick} className="relative w-[360px] bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out" style={{ padding: '0px 0px 15px 0px', gap: '40px' }}>
       <div>
@@ -75,15 +100,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
           </svg>
         ) : (
           <svg
-            onClick={(e) => {
-              e.stopPropagation();
-              addUserCourse({
-                userId: currentUser?.uid,
-                courseId: String(course?._id),
-                course: course!,
-              });
-              showSuccessMessage();
-            }}
+            onClick={handleSubscribeClick}
             className="absolute w-8 h-8 right-[20px] top-[20px] z-10 cursor-custom"
           >
             <g>
@@ -124,7 +141,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
           <div className="flex flex-col gap-10">
             <WorkoutProgress title="Прогресс" progress={progress} />
             <Link to={`/selection/${courseId}`}>
-              <Button title="Продолжить" />
+              <Button title={progress === '0%' ? 'Начать' : 'Продолжить'} />             
             </Link>
           </div>
         )}
@@ -134,3 +151,4 @@ const CourseCard: React.FC<CourseCardProp> = ({
 };
 
 export default CourseCard;
+

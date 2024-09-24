@@ -7,8 +7,7 @@ import Wrapper from "../../components/Wrapper/Wrapper";
 import noticeImg from "/public/img/notice.png";
 
 
-
-export function HomePage({ courses }: { courses: CourseProp[] | null }) {
+export function HomePage({ courses }: { courses: CourseProp[] | null; } ) {
 
 
   return (
@@ -39,6 +38,7 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
                   isSubscribed={false}
                   imgURL={course.nameEN}
                   title={course.nameRU}
+                  
                 />
               ))
             ) : (
@@ -57,3 +57,4 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
     </>
   );
 }
+
