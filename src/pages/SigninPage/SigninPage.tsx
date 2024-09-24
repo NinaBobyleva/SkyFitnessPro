@@ -7,12 +7,15 @@ import { ModalWrapper } from "../../components/ModalWrapper/ModalWrapper";
 import { path } from "../../paths";
 import { authUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 export function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  const {loginUser} = useUser();
 
   const onChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -25,6 +28,7 @@ export function SigninPage() {
     try {
       const user = await authUser({ email, password });
       localStorage.setItem("user", JSON.stringify(user));
+      loginUser(user);
       navigate(path.HOME);
     } catch (error) {
       // if (error) {
