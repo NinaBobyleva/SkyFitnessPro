@@ -40,7 +40,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
 
   function openSuccessModal() {
     setIsSuccess(true);
-    setTimeout(closeSuccessModal, 1500);
+    setTimeout(closeSuccessModal, 2000);
   }
 
   // Получаем данные usera о тренировках и упражнениях с сервера
