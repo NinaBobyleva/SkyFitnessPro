@@ -11,12 +11,11 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { getCourses } from "./api/coursesApi";
 import { CourseProp } from "./types";
 import SelectionPage from "./pages/SelectionPage/[id]/SelectionPage";
+import { useUser } from "./context/UserContext";
 
 export function RoutesApp() {
   const [courses, setCourses] = useState<CourseProp[]>([]);
-
-  const userData = localStorage.getItem('user');
-  const user = userData ? JSON.parse(userData) : null;
+  const {user} = useUser();
 
   useEffect(() => {
     const getDataCourses = async () => {
