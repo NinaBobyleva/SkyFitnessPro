@@ -126,16 +126,18 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
                 })
               : "Список упражнений пуст"}
           </div>
-          <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
-            <Button
-              title={
-                exercises?.find((el) => el.progressWorkout)
-                  ? "Обновить свой прогресс"
-                  : "Заполнить свой прогресс"
-              }
-              onClick={toggleWorkoutProgressModal}
-            />
-          </div>
+          {exercises.length ? (
+            <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
+              <Button
+                title={
+                  exercises?.find((el) => el.progressWorkout)
+                    ? "Обновить свой прогресс"
+                    : "Заполнить свой прогресс"
+                }
+                onClick={toggleWorkoutProgressModal}
+              />
+            </div>
+          ) : null}
           {isOpen && (
             <ModalWorkoutProgress
               isOpen={isSuccess}
