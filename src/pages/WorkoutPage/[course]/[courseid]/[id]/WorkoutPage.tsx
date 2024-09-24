@@ -43,24 +43,20 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     setTimeout(closeSuccessModal, 1500);
   }
 
+  // Получаем данные usera о тренировках и упражнениях с сервера
   useEffect(() => {
-    const getDataExercises = async () => {
+    const getDataExercisesByUser = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
       setExercises(res);
     };
-
-    getDataExercises();
-  }, [courseId, workoutId, uid]);
-
-  useEffect(() => {
     const getDataWorkoutsByUser = async () => {
       const res = await getWorkoutsByUser(uid, String(courseId));
-      console.log("getDataWorkoutsByUser", res);
       setWorkoutsUser(res);
     };
 
+    getDataExercisesByUser();
     getDataWorkoutsByUser();
-  }, [uid, courseId, exercises]);
+  }, [courseId, workoutId, uid]);
 
   const toggleWorkoutProgressModal = () => {
     setIsOpen((prev) => !prev);
@@ -79,6 +75,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
   }, []);
 
+  // Добавляем данные о exercises и progressCourse на сервер
   async function handleSaveChanges() {
     await update(
       ref(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`),
