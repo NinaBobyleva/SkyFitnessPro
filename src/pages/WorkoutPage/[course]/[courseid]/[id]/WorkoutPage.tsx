@@ -40,27 +40,23 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
 
   function openSuccessModal() {
     setIsSuccess(true);
-    setTimeout(closeSuccessModal, 1500);
+    setTimeout(closeSuccessModal, 2000);
   }
 
+  // Получаем данные usera о тренировках и упражнениях с сервера
   useEffect(() => {
-    const getDataExercises = async () => {
+    const getDataExercisesByUser = async () => {
       const res = await getExercises(uid, String(courseId), String(workoutId));
       setExercises(res);
     };
-
-    getDataExercises();
-  }, [courseId, workoutId, uid]);
-
-  useEffect(() => {
     const getDataWorkoutsByUser = async () => {
       const res = await getWorkoutsByUser(uid, String(courseId));
-      console.log("getDataWorkoutsByUser", res);
       setWorkoutsUser(res);
     };
 
+    getDataExercisesByUser();
     getDataWorkoutsByUser();
-  }, [uid, courseId, exercises]);
+  }, [courseId, workoutId, uid]);
 
   const toggleWorkoutProgressModal = () => {
     setIsOpen((prev) => !prev);
@@ -79,6 +75,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     };
   }, []);
 
+  // Добавляем данные о exercises и progressCourse на сервер
   async function handleSaveChanges() {
     await update(
       ref(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`),
@@ -126,16 +123,18 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
                 })
               : "Список упражнений пуст"}
           </div>
-          <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
-            <Button
-              title={
-                exercises?.find((el) => el.progressWorkout)
-                  ? "Обновить свой прогресс"
-                  : "Заполнить свой прогресс"
-              }
-              onClick={toggleWorkoutProgressModal}
-            />
-          </div>
+          {exercises.length ? (
+            <div className="lg:w-[320px] max-w-[283px] w-auto mt-10">
+              <Button
+                title={
+                  exercises?.find((el) => el.progressWorkout)
+                    ? "Обновить свой прогресс"
+                    : "Заполнить свой прогресс"
+                }
+                onClick={toggleWorkoutProgressModal}
+              />
+            </div>
+          ) : null}
           {isOpen && (
             <ModalWorkoutProgress
               isOpen={isSuccess}

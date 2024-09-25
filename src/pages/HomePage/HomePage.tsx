@@ -10,7 +10,6 @@ import noticeImg from "/public/img/notice.png";
 
 export function HomePage({ courses }: { courses: CourseProp[] | null }) {
 
-
   return (
     <>
       <Header />

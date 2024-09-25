@@ -124,7 +124,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
           <div className="flex flex-col gap-10">
             <WorkoutProgress title="Прогресс" progress={progress} />
             <Link to={`/selection/${courseId}`}>
-              <Button title="Продолжить" />
+              <Button title={progress !== '0%' ? "Продолжить" : "Начать"} />
             </Link>
           </div>
         )}

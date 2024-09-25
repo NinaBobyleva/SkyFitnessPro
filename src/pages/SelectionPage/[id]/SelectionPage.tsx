@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import WorkoutItem from "../../../components/WorkoutItem/WorkoutItem";
+import { ModalWrapper } from "../../../components/ModalWrapper/ModalWrapper";
 
 export default function SelectionPage() {
   const { id: courseId } = useParams<{ id: string }>();
@@ -38,33 +39,35 @@ export default function SelectionPage() {
 
   return (
     <div className="relative">
-      <div className="fixed top-[116px] md:top-[183px] left-[calc(50%-(343px/2))] md:left-[calc(50%-(460px/2))] bg-white rounded-[30px] shadow-def w-[343px] md:w-[460px] p-[30px] md:p-[40px]">
-        <h2 className="font-skyeng text-[32px] leading-[110%] text-center mb-[34px] md:mb-[48px]">
-          Выберите тренировку
-        </h2>
+      <ModalWrapper>
+        <div className="fixed top-[116px] md:top-[183px] left-[calc(50%-(343px/2))] md:left-[calc(50%-(460px/2))] bg-white rounded-[30px] shadow-def w-[343px] md:w-[460px] p-[30px] md:p-[40px]">
+          <h2 className="font-skyeng text-[32px] leading-[110%] text-center mb-[34px] md:mb-[48px]">
+            Выберите тренировку
+          </h2>
 
-        <ul className="max-h-[360px] mb-[34px] overflow-y-scroll">
-          {workouts.map((workout) => {
-            const shortWorkoutName = workout.name.split("/")[0];
-            let progress;
-            if (workout.exercises) {
-              progress = workout.exercises.find(
-                (el) => el.progressWorkout === el.quantity
+          <ul className="max-h-[360px] mb-[34px] overflow-y-scroll">
+            {workouts.map((workout) => {
+              const shortWorkoutName = workout.name.split("/")[0];
+              let progress;
+              if (workout.exercises) {
+                progress = workout.exercises.find(
+                  (el) => el.progressWorkout === el.quantity
+                );
+              }
+              return (
+                <WorkoutItem
+                  key={workout._id}
+                  progress={progress}
+                  setSelected={setSelected}
+                  workoutName={shortWorkoutName}
+                  id={workout._id}
+                  courseId={courseId}
+                />
               );
-            }
-            return (
-              <WorkoutItem
-                key={workout._id}
-                progress={progress}
-                setSelected={setSelected}
-                workoutName={shortWorkoutName}
-                id={workout._id}
-                courseId={courseId}
-              />
-            );
-          })}
-        </ul>
-      </div>
+            })}
+          </ul>
+        </div>
+      </ModalWrapper>
     </div>
   );
 }

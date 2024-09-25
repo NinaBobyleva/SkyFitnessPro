@@ -17,7 +17,6 @@ const currentUser = userData ? JSON.parse(userData) : null;
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<User | null>(currentUser);
-  console.log(user);
 
   const loginUser = (userData: User) => {
     setUser(userData);
