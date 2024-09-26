@@ -19,7 +19,7 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
             </h1>
             <div className="relative w-[288px] h-[120px] hidden sm:block">
               <img
-                src={"/public/img/notice.png"}
+                src={"/img/notice.png"}
                 alt="Notice"
                 className="absolute inset-0 w-full h-full object-cover flex-wrap"
               />
