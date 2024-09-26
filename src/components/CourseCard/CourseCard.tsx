@@ -193,7 +193,9 @@ const CourseCard: React.FC<CourseCardProp> = ({
       </div>
       {isSuccessMessageVisible &&
         createPortal(
-          <SubscribedModal onClick={hideModal} isSubscribed={false} />,
+          <SubscribedModal
+          // onClick={hideModal} isSubscribed={false}
+          />,
           document.getElementById('modal-root') || document.body
         )}
       <div className="flex flex-col px-[30px] pt-6 pb-4 gap-y-[18px]">
