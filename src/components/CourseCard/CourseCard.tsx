@@ -1,4 +1,95 @@
-import { useState,  useEffect } from 'react';
+// import { useState,  useEffect } from 'react';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { Button } from '../Button/Button';
+// import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
+// import { CourseProp } from '../../types';
+// import { createPortal } from 'react-dom';
+// import SubscribedModal from '../SubscribedModal/SubscribedModal';
+// import { addUserCourse } from '../../utils/userData';
+// import { auth } from '../../api/firebaseConfig';
+// import { removeSubscribedCourse } from '../../utils/removeSubscribedCourse';
+// import useFavoriteCourses from '../../hooks/useFavoriteCourse';
+
+
+// type CourseCardProp = {
+//   imgURL: string;
+//   title: string;
+//   isSubscribed: boolean;
+//   progress?: string;
+//   courseId: string;
+//   course?: CourseProp;
+// };
+
+// const CourseCard: React.FC<CourseCardProp> = ({
+//   courseId,
+//   progress,
+//   imgURL,
+//   title,
+//   isSubscribed,
+//   course,
+// }) => {
+//   const navigate = useNavigate();
+//   const currentUser = auth.currentUser;
+//   const [isSuccessMessageVisible, setIsSuccessMessageVisible] = useState(false);
+//   const { isFavoriteCourse, addFavoriteCourse, removeFavoriteCourse } = useFavoriteCourses();
+  
+
+//   const handleCardClick = () => {
+//     if (!isSubscribed) {
+//       navigate(`/course/${courseId}`);
+//     }
+//   };
+
+//   const showSuccessMessage = () => {
+//     console.log('Показываем сообщение об успехе...');
+//     setIsSuccessMessageVisible(() => {
+//       console.log("Показываем сообщение об успехе...");
+//       return true;
+//     });
+    
+//   };
+
+
+  
+//   useEffect(() => {
+//     if (isSuccessMessageVisible) {
+//       console.log("isSuccessMessageVisible обновлено до true");
+//     }
+//   }, [isSuccessMessageVisible]);
+  
+//   const hideModal = () => {
+//     setIsSuccessMessageVisible(false);
+//   };
+
+//   useEffect(() => {
+//     if (isSuccessMessageVisible) {
+//       const timer = setTimeout(() => {
+//         hideModal();
+//       }, 1000);
+
+//       return () => clearTimeout(timer);
+//     }
+//   }, [isSuccessMessageVisible]);
+
+
+//   const handleAddCourseClick = () => {
+//     console.log('handleAddCourseClick called');
+//     if (!currentUser) {
+//       navigate('/signin');
+//     } else if (!isSubscribed) {
+//       addUserCourse({
+//         userId: currentUser?.uid,
+//         courseId: String(course?._id),
+//         course: course!,
+//       });
+//       if (!isFavoriteCourse(courseId)) {
+//         addFavoriteCourse(courseId);
+//         showSuccessMessage();
+//       }
+//     }
+//   };
+
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
@@ -8,7 +99,7 @@ import SubscribedModal from '../SubscribedModal/SubscribedModal';
 import { addUserCourse } from '../../utils/userData';
 import { auth } from '../../api/firebaseConfig';
 import { removeSubscribedCourse } from '../../utils/removeSubscribedCourse';
-
+import useFavoriteCourses from '../../hooks/useFavoriteCourse';
 
 type CourseCardProp = {
   imgURL: string;
@@ -30,7 +121,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
   const navigate = useNavigate();
   const currentUser = auth.currentUser;
   const [isSuccessMessageVisible, setIsSuccessMessageVisible] = useState(false);
-  
+  const { isFavoriteCourse, addFavoriteCourse, removeFavoriteCourse } = useFavoriteCourses();
 
   const handleCardClick = () => {
     if (!isSubscribed) {
@@ -38,26 +129,37 @@ const CourseCard: React.FC<CourseCardProp> = ({
     }
   };
 
-  const showSuccessMessage = () => {
-    setIsSuccessMessageVisible(true);
-  };
-
-  const hideModal = () => {
-    setIsSuccessMessageVisible(false);
+  const handleAddCourseClick = () => {
+    if (!currentUser) {
+      navigate('/signin');
+    } else if (!isSubscribed) {
+      addUserCourse({
+        userId: currentUser?.uid,
+        courseId: String(course?._id),
+        course: course!,
+      });
+      if (!isFavoriteCourse(courseId)) {
+        addFavoriteCourse(courseId);
+        setIsSuccessMessageVisible(true);
+      }
+    }
   };
 
   useEffect(() => {
     if (isSuccessMessageVisible) {
       const timer = setTimeout(() => {
-        hideModal();
-      }, 3000);
-
+        setIsSuccessMessageVisible(false);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [isSuccessMessageVisible]);
 
+    const hideModal = () => {
+    setIsSuccessMessageVisible(false);
+  };
+
   return (
-    <div onClick={handleCardClick} className="relative w-[360px] bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out" style={{ padding: '0px 0px 15px 0px', gap: '40px' }}>
+    <div onClick={handleCardClick} className="relative w-[360px] bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out sm:gap-y-[24px] md:gap-y-[40px]" style={{ padding: '0px 0px 15px 0px', gap: '40' }}>
       <div>
         <img className="rounded-[30px] h-[325px] w-full object-cover" src={`/img/${imgURL}.png`} alt={title} width={360} height={325} />
         {isSubscribed ? (
@@ -65,6 +167,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
             onClick={(e) => {
               e.stopPropagation();
               removeSubscribedCourse(courseId);
+              removeFavoriteCourse(courseId);
             }}
             className="absolute w-8 h-8 right-[20px] top-[20px] z-10 cursor-custom"
           >
@@ -77,12 +180,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
           <svg
             onClick={(e) => {
               e.stopPropagation();
-              addUserCourse({
-                userId: currentUser?.uid,
-                courseId: String(course?._id),
-                course: course!,
-              });
-              showSuccessMessage();
+              handleAddCourseClick();
             }}
             className="absolute w-8 h-8 right-[20px] top-[20px] z-10 cursor-custom"
           >
@@ -95,7 +193,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
       </div>
       {isSuccessMessageVisible &&
         createPortal(
-          <SubscribedModal onClick={hideModal} />,
+          <SubscribedModal onClick={hideModal} isSubscribed={false} />,
           document.getElementById('modal-root') || document.body
         )}
       <div className="flex flex-col px-[30px] pt-6 pb-4 gap-y-[18px]">
@@ -124,7 +222,7 @@ const CourseCard: React.FC<CourseCardProp> = ({
           <div className="flex flex-col gap-10">
             <WorkoutProgress title="Прогресс" progress={progress} />
             <Link to={`/selection/${courseId}`}>
-              <Button title="Продолжить" />
+              <Button title={progress !== '0%' ? "Продолжить" : "Начать"} />
             </Link>
           </div>
         )}

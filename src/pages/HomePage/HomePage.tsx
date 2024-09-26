@@ -4,8 +4,6 @@ import { CourseProp } from "../../types";
 import { Link, Outlet } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Wrapper from "../../components/Wrapper/Wrapper";
-import noticeImg from "/public/img/notice.png";
-
 
 
 export function HomePage({ courses }: { courses: CourseProp[] | null }) {
@@ -17,19 +15,22 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
       <Wrapper>
         <div>
           <div id="top" className="flex flex-col md:flex-row">
-            <h1 className="mb-[16px] lg:mb-[8px] font-roboto font-medium text-[60px] leading-[60px] md:w-[calc(100% - 308px)] main:w-[850px]">
+            <h1 className="lg:mb-[8px] font-roboto font-semibold sm:text-[60px] text-[32px] sm:leading-[60px] sm:w-[calc(100% - 308px)] main:w-[850px] md:ml-0 ml-[10px]">
               Начните заниматься спортом и улучшите качество жизни
             </h1>
-            <div className="relative w-[288px] h-[120px]">
+            <div className="relative w-[288px] h-[120px] hidden sm:block">
               <img
-                src={noticeImg}
+                src={"/public/img/notice.png"}
                 alt="Notice"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover flex-wrap"
               />
+            <p className="lg:block w-[288px] h-[120px] py-4 main:px-5 px-4 font-roboto-400 main:text-[32px] leading-none text-[28px] text-black opacity-100 z-1 relative bg-notice bg-cover bg-no-repeat bg-center pb-8 align-middle">
+              Измени своё тело за полгода!
+            </p>
             </div>
           </div>
 
-          <div className="flex md:justify-center lg:justify-start flex-wrap md:gap-y-10 gap-x-10 mb-32 mt-10">
+          <div className="flex md:justify-center lg:justify-start flex-wrap md:gap-y-10 gap-x-10 mb-32 mt-10 sm:gap-x-[24px] md:gap-y-10 md:gap-x-10 gap-4">
             {courses ? (
               courses.map((course) => (
                 <CourseCard

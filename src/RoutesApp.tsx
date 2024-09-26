@@ -12,6 +12,7 @@ import { getCourses } from "./api/coursesApi";
 import { CourseProp } from "./types";
 import SelectionPage from "./pages/SelectionPage/[id]/SelectionPage";
 import { useUser } from "./context/UserContext";
+import ResetPage from "./pages/ResetPage/ResetPage";
 
 export function RoutesApp() {
   const [courses, setCourses] = useState<CourseProp[]>([]);
@@ -30,7 +31,8 @@ export function RoutesApp() {
       <Route element={<PrivateRoute user={user} />}>
         <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
         <Route path={path.SELECTION} element={<SelectionPage />} />
-        <Route path={path.PROFILE} element={<ProfilePage />} />  
+        <Route path={path.PROFILE} element={<ProfilePage />} />
+        <Route path={path.RESET} element={<ResetPage />} /> 
       </Route>
 
       <Route path={path.HOME} element={<HomePage courses={courses} />}>
