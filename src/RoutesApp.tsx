@@ -32,12 +32,12 @@ export function RoutesApp() {
         <Route path={path.WORKOUT} element={<WorkoutPage courses={courses} />} />
         <Route path={path.SELECTION} element={<SelectionPage />} />
         <Route path={path.PROFILE} element={<ProfilePage />} />
-        <Route path={path.RESET} element={<ResetPage />} /> 
       </Route>
 
       <Route path={path.HOME} element={<HomePage courses={courses} />}>
         <Route path={path.LOGIN} element={<SigninPage />} />
         <Route path={path.SIGNUP} element={<SignupPage />} />
+        <Route path={path.RESET} element={<ResetPage />} /> 
       </Route>
 
       <Route path={path.COURSE} element={<CoursesPage courses={courses} />} />

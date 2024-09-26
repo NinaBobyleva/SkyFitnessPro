@@ -6,7 +6,7 @@ import { ModalLogo } from "../../components/ModalLogo/ModalLogo";
 import { ModalWrapper } from "../../components/ModalWrapper/ModalWrapper";
 import { path } from "../../paths";
 import { authUser } from "../../api/authApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { getErrorText } from "../../utils/getErrorText";
 
@@ -56,9 +56,9 @@ export function SigninPage() {
           {errorText ? (
             <p className="text-rose-500 text-center mt-1">
               Пароль введен не верно.
-              <span className="underline cursor-custom">
+              <Link to={path.RESET} className="underline cursor-custom">
                 Восстановить пароль?
-              </span>
+              </Link>
             </p>
           ) : (<p className="text-rose-500 mt-1 text-center">{error}</p>)}
         </div>
