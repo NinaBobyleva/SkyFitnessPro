@@ -9,3 +9,4 @@ export const removeSubscribedCourse = async (courseId: string) => {
     ref(db, `users/${auth.currentUser?.uid}/courses/${courseId}`),
   );
 };
+
