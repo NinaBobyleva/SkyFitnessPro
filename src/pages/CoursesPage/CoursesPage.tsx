@@ -7,13 +7,24 @@ import { Link, useParams } from "react-router-dom";
 import { auth } from "../../api/firebaseConfig";
 import { addUserCourse } from "../../utils/userData";
 import { path } from "../../paths";
+import SubscribedModal from "../../components/SubscribedModal/SubscribedModal";
 
 export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
   const [color, setColor] = useState("bg-white");
+  const [isSubscribe, setIsSubscribe] = useState(false);
   const { id } = useParams();
   const currentUser = auth.currentUser;
 
   const course = courses?.find((el) => el._id === id);
+
+  useEffect(() => {
+    if (isSubscribe) {
+      setTimeout(() => {
+        setIsSubscribe(false);
+      }, 1000);
+      
+    }
+  }, [isSubscribe]);
 
   useEffect(() => {
     switch (course?.nameEN) {
@@ -76,7 +87,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
           </div>
         </section>
         <section className="z-10">
-          <h2 className="font-roboto-500 font-semibold text-black text-4xl md:text-5xl mb-[24px] lg:mb-[40px]">
+          <h2 className="font-roboto-500 font-semibold text-black text-2xl md:text-5xl mb-[24px] lg:mb-[40px]">
             Направления
           </h2>
           <ul className="bg-lime   rounded-[30px] flex flex-col gap-y-[20px] lg:flex-row flex-wrap md:gap-y-[22px] p-[30px] ">
@@ -117,11 +128,12 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
                   </li>
                 </ul>
               </div>
+              {isSubscribe && <SubscribedModal/>}
               {currentUser ? (
                 <Button
                   title="Добавить курс"
                   onClick={() => {
-                    console.log(course);
+                    setIsSubscribe(true);
                     addUserCourse({
                       userId: currentUser?.uid,
                       courseId: String(course?._id),

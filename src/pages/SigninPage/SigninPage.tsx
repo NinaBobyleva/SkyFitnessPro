@@ -47,10 +47,12 @@ export function SigninPage() {
         <div className="mb-[34px]">
           <InputForm
             onChange={(e) => onChangeInput(e, setEmail)}
+            type="email"
             placeholder="Логин"
           />
           <InputForm
             onChange={(e) => onChangeInput(e, setPassword)}
+            type="password"
             placeholder="Пароль"
           />
           {errorText ? (
