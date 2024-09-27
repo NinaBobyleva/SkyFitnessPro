@@ -83,7 +83,6 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
     );
 
     const progressCourse = await getProgressCourse(uid, String(courseId));
-    console.log("getProgressCourse", progressCourse);
 
     await update(ref(db, `users/${uid}/courses/${courseId}/`), {
       progressCourse: progressCourse,
@@ -104,7 +103,7 @@ export function WorkoutPage({ courses }: { courses: CourseProp[] }) {
             <Video videoURL={workout?.video} />
           </div>
         </section>
-        <section className="rounded-[30px] p-[30px] lg:p-10 bg-white shadow-def ">
+        <section className="rounded-[30px] mb-16 md:mb-32 p-[30px] lg:p-10 bg-white shadow-def ">
           <h2 className="text-[32px] text-black font-skyeng font-normal mb-[20px]">
             Упражнения тренировки
           </h2>

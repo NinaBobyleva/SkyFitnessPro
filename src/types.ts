@@ -34,14 +34,6 @@ export type PathProp = {
   SIGNUP: string;
 };
 
-export type InputProps = {
-  // type: string;
-  // name: string;
-  placeholder: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // value: string;
-};
-
 export type ButtonProps = {
   title?: string;
   onClick?: () => void;

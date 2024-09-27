@@ -57,3 +57,17 @@ export async function getWorkoutsByUser(userId: string, courseId: string): Promi
       return [];
   }
 }
+
+export async function getUser(userId: string): Promise<CourseProp[]> {
+  try {
+      const userDB = ref(db, `/users/${userId}/courses`);
+      const snapshot = await get(userDB);
+      if(snapshot.exists()){
+          return Object.values(snapshot.val())
+      }
+      return [];
+  } catch (error) {
+      console.log(error)
+      return [];
+  }
+}

@@ -39,9 +39,9 @@ export function SignupPage() {
     <ModalWrapper>
       <ModalLogo>
         <div className="mb-[34px]">
-          <InputForm value={email} onChange={(e)=> onChangeInput(e, setEmail)} placeholder="Эл. почта" />
-          <InputForm value={password} onChange={(e)=> onChangeInput(e, setPassword)} placeholder="Пароль" />
-          <InputForm value={repeatPass} onChange={(e)=> onChangeInput(e, setRepeatPass)} placeholder="Повторить пароль" />
+          <InputForm value={email} onChange={(e)=> onChangeInput(e, setEmail)} type="email" placeholder="Эл. почта" />
+          <InputForm value={password} onChange={(e)=> onChangeInput(e, setPassword)} type="password" placeholder="Пароль" />
+          <InputForm value={repeatPass} onChange={(e)=> onChangeInput(e, setRepeatPass)} type="password" placeholder="Повторить пароль" />
           <p className="text-rose-500 mt-1 text-center">{error}</p>
         </div>
 

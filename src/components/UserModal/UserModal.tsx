@@ -33,7 +33,6 @@ export default function UserModal({
     try {
       await logout();
       navigate('/');
-      console.log('Успешный выход');
     } catch (error) {
       console.error('Ошибка при выходе:', error);
       setError('Ошибка при выходе из системы');
