@@ -1,94 +1,3 @@
-// import { useState,  useEffect } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { Button } from '../Button/Button';
-// import WorkoutProgress from '../WorkoutProgress/WorkoutProgress';
-// import { CourseProp } from '../../types';
-// import { createPortal } from 'react-dom';
-// import SubscribedModal from '../SubscribedModal/SubscribedModal';
-// import { addUserCourse } from '../../utils/userData';
-// import { auth } from '../../api/firebaseConfig';
-// import { removeSubscribedCourse } from '../../utils/removeSubscribedCourse';
-// import useFavoriteCourses from '../../hooks/useFavoriteCourse';
-
-
-// type CourseCardProp = {
-//   imgURL: string;
-//   title: string;
-//   isSubscribed: boolean;
-//   progress?: string;
-//   courseId: string;
-//   course?: CourseProp;
-// };
-
-// const CourseCard: React.FC<CourseCardProp> = ({
-//   courseId,
-//   progress,
-//   imgURL,
-//   title,
-//   isSubscribed,
-//   course,
-// }) => {
-//   const navigate = useNavigate();
-//   const currentUser = auth.currentUser;
-//   const [isSuccessMessageVisible, setIsSuccessMessageVisible] = useState(false);
-//   const { isFavoriteCourse, addFavoriteCourse, removeFavoriteCourse } = useFavoriteCourses();
-  
-
-//   const handleCardClick = () => {
-//     if (!isSubscribed) {
-//       navigate(`/course/${courseId}`);
-//     }
-//   };
-
-//   const showSuccessMessage = () => {
-//     console.log('Показываем сообщение об успехе...');
-//     setIsSuccessMessageVisible(() => {
-//       console.log("Показываем сообщение об успехе...");
-//       return true;
-//     });
-    
-//   };
-
-
-  
-//   useEffect(() => {
-//     if (isSuccessMessageVisible) {
-//       console.log("isSuccessMessageVisible обновлено до true");
-//     }
-//   }, [isSuccessMessageVisible]);
-  
-//   const hideModal = () => {
-//     setIsSuccessMessageVisible(false);
-//   };
-
-//   useEffect(() => {
-//     if (isSuccessMessageVisible) {
-//       const timer = setTimeout(() => {
-//         hideModal();
-//       }, 1000);
-
-//       return () => clearTimeout(timer);
-//     }
-//   }, [isSuccessMessageVisible]);
-
-
-//   const handleAddCourseClick = () => {
-//     console.log('handleAddCourseClick called');
-//     if (!currentUser) {
-//       navigate('/signin');
-//     } else if (!isSubscribed) {
-//       addUserCourse({
-//         userId: currentUser?.uid,
-//         courseId: String(course?._id),
-//         course: course!,
-//       });
-//       if (!isFavoriteCourse(courseId)) {
-//         addFavoriteCourse(courseId);
-//         showSuccessMessage();
-//       }
-//     }
-//   };
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
@@ -154,9 +63,9 @@ const CourseCard: React.FC<CourseCardProp> = ({
     }
   }, [isSuccessMessageVisible]);
 
-    const hideModal = () => {
-    setIsSuccessMessageVisible(false);
-  };
+  //   const hideModal = () => {
+  //   setIsSuccessMessageVisible(false);
+  // };
 
   return (
     <div onClick={handleCardClick} className="relative w-[360px] bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out sm:gap-y-[24px] md:gap-y-[40px]" style={{ padding: '0px 0px 15px 0px', gap: '40' }}>
