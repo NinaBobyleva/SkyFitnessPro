@@ -29,7 +29,7 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
             </div>
           </div>
 
-          <div className="flex md:justify-center lg:justify-start flex-wrap md:gap-y-10 gap-x-10 mb-32 mt-10 sm:gap-x-[24px] md:gap-y-10 md:gap-x-10 gap-4">
+          <div className="flex md:justify-center mb-6 lg:justify-start flex-wrap gap-x-10 mt-10 sm:gap-x-[24px] md:gap-y-10 md:gap-x-10 gap-4">
             {courses ? (
               courses.map((course) => (
                 <CourseCard
@@ -46,7 +46,7 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
             )}
           </div>
 
-          <div className="flex justify-center mx-[auto] w-[140px] mt-8">
+          <div className="flex justify-end md:justify-center mb-7 mx-[auto] md:w-[140px] mt-8">
             <Link to={"#top"}>
               <Button onClick={() => window.scrollTo({top: 0, behavior: "smooth"})} title="Наверх &#8593;" />
             </Link>
