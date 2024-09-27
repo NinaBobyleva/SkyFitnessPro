@@ -8,12 +8,16 @@ import { auth } from "../../api/firebaseConfig";
 import { addUserCourse } from "../../utils/userData";
 import { path } from "../../paths";
 import SubscribedModal from "../../components/SubscribedModal/SubscribedModal";
+import { getUser } from "../../api/coursesApi";
+import { useUser } from "../../context/UserContext";
 
 export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
   const [color, setColor] = useState("bg-white");
   const [isSubscribe, setIsSubscribe] = useState(false);
+  const [isAddedCourse, setIsAddedCourse] = useState(false);
   const { id } = useParams();
   const currentUser = auth.currentUser;
+  const {user} = useUser();
 
   const course = courses?.find((el) => el._id === id);
 
@@ -21,10 +25,19 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
     if (isSubscribe) {
       setTimeout(() => {
         setIsSubscribe(false);
+        setIsAddedCourse(true);
       }, 1000);
       
     }
   }, [isSubscribe]);
+
+  useEffect(() => {
+    if (user) {
+      getUser(user.uid).then((res) => {
+        setIsAddedCourse(res.some((el) => el._id === id));
+      });
+    }
+  }, [])
 
   useEffect(() => {
     switch (course?.nameEN) {
@@ -128,7 +141,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
                   </li>
                 </ul>
               </div>
-              {isSubscribe && <SubscribedModal/>}
+              {isSubscribe && !isAddedCourse && <SubscribedModal/>}
               {currentUser ? (
                 <Button
                   title="Добавить курс"

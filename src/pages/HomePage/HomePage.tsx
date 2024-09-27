@@ -14,7 +14,7 @@ export function HomePage({ courses }: { courses: CourseProp[] | null }) {
       <Wrapper>
         <div>
           <div id="top" className="flex flex-col md:flex-row">
-            <h1 className="lg:mb-[8px] font-roboto font-semibold sm:text-[60px] text-[32px] sm:leading-[60px] sm:w-[calc(100% - 308px)] main:w-[850px] md:ml-0 ml-[10px]">
+            <h1 className="lg:mb-[8px] font-roboto font-semibold sm:text-[60px] text-[32px] leading-8 sm:leading-[60px] sm:w-[calc(100% - 308px)] main:w-[850px] md:ml-0 ml-[10px]">
               Начните заниматься спортом и улучшите качество жизни
             </h1>
             <div className="relative w-[288px] h-[120px] hidden sm:block">

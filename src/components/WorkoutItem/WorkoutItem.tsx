@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ExerciseType } from "../../types";
 
 type WorkoutItemProps = {
-  progress: ExerciseType | undefined;
+  progress: boolean;
   setSelected: (id: string) => void;
   workoutName: string;
   id: string;

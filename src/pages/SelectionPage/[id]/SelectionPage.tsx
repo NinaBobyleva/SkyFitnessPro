@@ -47,9 +47,9 @@ export default function SelectionPage() {
           <ul className="max-h-[360px] mb-[34px] overflow-y-scroll">
             {workouts.map((workout) => {
               const shortWorkoutName = workout.name.split("/")[0];
-              let progress;
+              let progress= false;
               if (workout.exercises) {
-                progress = workout.exercises.find(
+                progress = workout.exercises.every(
                   (el) => el.progressWorkout === el.quantity
                 );
               }
