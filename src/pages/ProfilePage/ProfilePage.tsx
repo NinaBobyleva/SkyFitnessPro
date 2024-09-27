@@ -6,11 +6,9 @@ import Wrapper from "../../components/Wrapper/Wrapper";
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import { getAuth, User } from "firebase/auth";
-import { onValue, ref, set } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import { getDatabase } from "firebase/database";
 import { ExerciseType } from "../../types";
-// import { FaSave } from "react-icons/fa";
-// import { updateDisplayName } from "../../utils/updateDisplayName";
 
 interface WorkoutType {
   name: string;
@@ -31,7 +29,6 @@ interface UserCourseType {
 function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [courses, setCourses] = useState<UserCourseType[]>([]);
-  // const [name, setName] = useState<string>("");
   const database = getDatabase();
   const auth = getAuth();
 
@@ -39,11 +36,6 @@ function ProfilePage() {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        // onValue(ref(database, `users/${user.uid}/displayName`), (snapshot) => {
-        //   if (snapshot.exists()) {
-        //     setName(snapshot.val());
-        //   }
-        // });
       } else {
         setUser(null);
       }
@@ -70,16 +62,6 @@ function ProfilePage() {
       }
     );
   }, [auth.currentUser?.uid]);
-
-  // const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setName(event.target.value);
-  // };
-
-  // const handleNameSave = async () => {
-  //   if (!auth.currentUser) return;
-  //   await set(ref(database, `users/${auth.currentUser.uid}/displayName`), name);
-  //   updateDisplayName(name, setName);
-  // };
 
   const nameUser = user?.email?.split('@')[0];
 
@@ -108,15 +90,6 @@ function ProfilePage() {
                 <div className="sm:text-[32px] text-[24px] font-bold flex items-center">
                   {nameUser}
                 </div>
-                {/* <div className="sm:text-[32px] text-[24px] font-bold flex items-center">
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={handleNameChange}
-                    className="mr-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl max-w-[15rem]"
-                  />
-                  <FaSave onClick={handleNameSave} className="cursor-pointer" />
-                </div> */}
                 <div className="flex flex-col gap-[2px]">
                   <p className="sm:text-[18px] text-[16px]">{`Логин: ${user.email}`}</p>
                   <p className="sm:text-[18px] text-[16px]">{`Пароль: ********`}</p>
