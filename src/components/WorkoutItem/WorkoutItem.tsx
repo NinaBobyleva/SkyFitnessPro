@@ -13,7 +13,6 @@ const WorkoutItem = ({ progress, setSelected, workoutName, id, courseId }: Worko
  
   const handleClick = () => {
     setSelected(id);
-    console.log('Selected workout ID', id);
   };
 
   return (

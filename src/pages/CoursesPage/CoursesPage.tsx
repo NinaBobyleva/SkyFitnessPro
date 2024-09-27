@@ -103,7 +103,7 @@ export function CoursesPage({ courses }: { courses: CourseProp[] | null }) {
             })}
           </ul>
         </section>
-        <section className="z-10 mt-[156px] xl:mt-[102px] md:mt-[256px]">
+        <section className="z-10 mt-[156px] xl:mt-[102px] md:mt-[256px] md:mb-0 mb-10">
           <div className="rounded-[30px] p-[40px] md:p-[30px] lg:p-10 bg-white shadow-def">
             <div className="max-w-[465px] flex flex-col xl:relative xl:z-20">
               <h2 className=" lg:text-[60px] md:text-5xl text-black font-roboto-500 font-semibold leading-none mb-[28px] sm:/xl:/ect text-[32px]">

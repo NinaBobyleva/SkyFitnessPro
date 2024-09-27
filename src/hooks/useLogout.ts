@@ -5,7 +5,6 @@ export const useLogout = () => {
     try {
       await auth.signOut();
       localStorage.removeItem('user'); // Очистка localStorage
-      console.log('Успешный выход');
     } catch (error) {
       console.error('Ошибка при выходе:', error);
     }

@@ -21,7 +21,6 @@ export default function SelectionPage() {
     const unsubscribe = onValue(dbRef, (snapshot) => {
       if (snapshot.exists()) {
         const course = snapshot.val();
-        console.log("Course data:", course);
         const workoutList: WorkoutType[] = Object.values(course.workouts || {});
         workoutList.sort((a, b) => (a.name > b.name ? 1 : -1));
         setWorkouts(workoutList);
