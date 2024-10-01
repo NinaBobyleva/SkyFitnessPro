@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент Title Успешный рендер Title 1`] = `
+<h1
+  className="font-roboto-500 text-2xl lg:text-6xl font-medium text-black mb-[10px] lg:mb-6"
+>
+  Hello
+</h1>
+`;
